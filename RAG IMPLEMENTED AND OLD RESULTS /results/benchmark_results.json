@@ -1,0 +1,2263 @@
+{
+  "benchmark_stats": {
+    "total_samples": 15,
+    "faithful_samples": 8,
+    "hallucinated_samples": 7,
+    "balance_ratio": 0.5333333333333333,
+    "domains": {
+      "science": 4,
+      "history": 2,
+      "medicine": 3,
+      "technology": 3,
+      "geography": 2,
+      "general": 1
+    },
+    "hallucination_types": {
+      "contradictory": 4,
+      "fabricated": 2,
+      "unsupported": 1
+    },
+    "difficulty_breakdown": {
+      "easy": 7,
+      "medium": 6,
+      "hard": 2
+    }
+  },
+  "evaluation_metrics": {
+    "accuracy": 0.5333,
+    "precision": 0.5556,
+    "recall": 0.625,
+    "f1_score": 0.5882,
+    "roc_auc": 0.4821,
+    "confusion_matrix": [
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "spearman_r": -0.0309,
+    "pearson_r": -0.084,
+    "domain_accuracy": {
+      "science": 0.5,
+      "history": 1.0,
+      "medicine": 0.3333333333333333,
+      "technology": 0.3333333333333333,
+      "geography": 1.0,
+      "general": 0.0
+    },
+    "total_evaluated": 15,
+    "mean_hallu_score_faithful": 0.4393,
+    "mean_hallu_score_hallucinated": 0.4576
+  },
+  "per_sample_results": [
+    {
+      "id": "sci_001",
+      "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stages: the light-dependent reactions and the Calvin cycle.",
+      "generated_text": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen. It happens in the chloroplasts through two stages: light reactions and the Calvin cycle.",
+      "nli": {
+        "faithfulness_score": 0.014126379042863846,
+        "min_faithfulness": 0.0021654777228832245,
+        "max_faithfulness": 0.026087280362844467,
+        "std_faithfulness": 0.011960901319980621,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 2.9126673325663432e-05,
+            "neutral_prob": 0.9738836288452148,
+            "entailment_prob": 0.026087280362844467,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.026087280362844467,
+            "sentence": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen."
+          },
+          {
+            "contradiction_prob": 9.836829849518836e-05,
+            "neutral_prob": 0.9977360963821411,
+            "entailment_prob": 0.0021654777228832245,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.0021654777228832245,
+            "sentence": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9620082974433899,
+        "faithfulness_score": 0.9388253390789032,
+        "bertscore_precision": 0.9388253390789032,
+        "bertscore_recall": 0.9388253390789032,
+        "bertscore_f1": 0.9388253390789032,
+        "mean_sentence_similarity": 0.9005385488271713,
+        "min_sentence_similarity": 0.841990202665329,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.9181737899780273,
+            "faithfulness_score": 0.9590868949890137,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen.",
+            "sentence": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen."
+          },
+          {
+            "cosine_similarity": 0.683980405330658,
+            "faithfulness_score": 0.841990202665329,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle.",
+            "sentence": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen.",
+            "error": "API_FAILED",
+            "sentence": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle.",
+            "error": "API_FAILED",
+            "sentence": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.417709300480783,
+        "nli_score": 0.014126379042863846,
+        "semantic_score": 0.9388253390789032,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.17608425269524255,
+          0.9388253390789032
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "sci_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.417709300480783,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "nli_score": 0.014126379042863846,
+        "semantic_score": 0.9388253390789032,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "science",
+        "difficulty": "easy",
+        "question": "Explain how photosynthesis works.",
+        "ground_truth_text": "Plants use sunlight, water, and CO2 to produce glucose and oxygen in chloroplasts via light-dependent reactions and Calvin cycle."
+      }
+    },
+    {
+      "id": "sci_002",
+      "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stages: the light-dependent reactions and the Calvin cycle.",
+      "generated_text": "Photosynthesis occurs in the mitochondria of plant cells. Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation. The process releases carbon dioxide as a byproduct.",
+      "nli": {
+        "faithfulness_score": 0.6644551559196165,
+        "min_faithfulness": 0.00044453260488808155,
+        "max_faithfulness": 0.9976531863212585,
+        "std_faithfulness": 0.46952742446287665,
+        "hallucinated_sentences": 1,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 2,
+        "total_sentences": 3,
+        "hallucination_rate": 0.3333333333333333,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.9994833469390869,
+            "neutral_prob": 7.207182352431118e-05,
+            "entailment_prob": 0.00044453260488808155,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.00044453260488808155,
+            "sentence": "Photosynthesis occurs in the mitochondria of plant cells."
+          },
+          {
+            "contradiction_prob": 0.004190796986222267,
+            "neutral_prob": 0.0005415254854597151,
+            "entailment_prob": 0.9952677488327026,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9952677488327026,
+            "sentence": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation."
+          },
+          {
+            "contradiction_prob": 0.001960388384759426,
+            "neutral_prob": 0.0003863957244902849,
+            "entailment_prob": 0.9976531863212585,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9976531863212585,
+            "sentence": "The process releases carbon dioxide as a byproduct."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.8495050072669983,
+        "faithfulness_score": 0.6483045963806673,
+        "bertscore_precision": 0.645764152208964,
+        "bertscore_recall": 0.6508651077747345,
+        "bertscore_f1": 0.6483045963806673,
+        "mean_sentence_similarity": 0.8173222343126932,
+        "min_sentence_similarity": 0.7653531432151794,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.7215174436569214,
+            "faithfulness_score": 0.8607587218284607,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Photosynthesis occurs in the mitochondria of plant cells.",
+            "sentence": "Photosynthesis occurs in the mitochondria of plant cells."
+          },
+          {
+            "cosine_similarity": 0.6517096757888794,
+            "faithfulness_score": 0.8258548378944397,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation.",
+            "sentence": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation."
+          },
+          {
+            "cosine_similarity": 0.5307062864303589,
+            "faithfulness_score": 0.7653531432151794,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "The process releases carbon dioxide as a byproduct.",
+            "sentence": "The process releases carbon dioxide as a byproduct."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 3,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Photosynthesis occurs in the mitochondria of plant cells.",
+            "error": "API_FAILED",
+            "sentence": "Photosynthesis occurs in the mitochondria of plant cells."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation.",
+            "error": "API_FAILED",
+            "sentence": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "The process releases carbon dioxide as a byproduct.",
+            "error": "API_FAILED",
+            "sentence": "The process releases carbon dioxide as a byproduct."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.5622202238479993,
+        "nli_score": 0.6644551559196165,
+        "semantic_score": 0.6483045963806673,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.33333333333333337,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.8519750888989002,
+        "confidence_interval": [
+          0.5,
+          0.6644551559196165
+        ],
+        "hallucination_rate": 0.3333333333333333,
+        "hallucinated_count": 1,
+        "total_sentences": 3,
+        "model_used": "sci_002",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.5622202238479993,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.8519750888989002,
+        "nli_score": 0.6644551559196165,
+        "semantic_score": 0.6483045963806673,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.3333333333333333,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "contradictory",
+        "domain": "science",
+        "difficulty": "easy",
+        "question": "Explain how photosynthesis works.",
+        "ground_truth_text": "Occurs in chloroplasts; uses sunlight, water, CO2; produces oxygen and glucose."
+      }
+    },
+    {
+      "id": "sci_003",
+      "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with mass can reach or exceed the speed of light.",
+      "generated_text": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'. According to Einstein's special relativity, objects with mass cannot reach this speed.",
+      "nli": {
+        "faithfulness_score": 0.5012624110095203,
+        "min_faithfulness": 0.009420185349881649,
+        "max_faithfulness": 0.9931046366691589,
+        "std_faithfulness": 0.49184222565963864,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 1,
+        "faithful_sentences": 1,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.0057798512279987335,
+            "neutral_prob": 0.0011154551757499576,
+            "entailment_prob": 0.9931046366691589,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9931046366691589,
+            "sentence": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'."
+          },
+          {
+            "contradiction_prob": 9.641022188588977e-05,
+            "neutral_prob": 0.9904834032058716,
+            "entailment_prob": 0.009420185349881649,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.009420185349881649,
+            "sentence": "According to Einstein's special relativity, objects with mass cannot reach this speed."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9236337542533875,
+        "faithfulness_score": 0.7889351125766365,
+        "bertscore_precision": 0.8353689312934875,
+        "bertscore_recall": 0.7473915020624796,
+        "bertscore_f1": 0.7889351125766365,
+        "mean_sentence_similarity": 0.8614941239356995,
+        "min_sentence_similarity": 0.8120566010475159,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.8218632936477661,
+            "faithfulness_score": 0.9109316468238831,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'.",
+            "sentence": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'."
+          },
+          {
+            "cosine_similarity": 0.6241132020950317,
+            "faithfulness_score": 0.8120566010475159,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "According to Einstein's special relativity, objects with mass cannot reach this speed.",
+            "sentence": "According to Einstein's special relativity, objects with mass cannot reach this speed."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'.",
+            "error": "API_FAILED",
+            "sentence": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "According to Einstein's special relativity, objects with mass cannot reach this speed.",
+            "error": "API_FAILED",
+            "sentence": "According to Einstein's special relativity, objects with mass cannot reach this speed."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.5582288663686593,
+        "nli_score": 0.5012624110095203,
+        "semantic_score": 0.7889351125766365,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.7281825153296559,
+        "confidence_interval": [
+          0.5,
+          0.7889351125766365
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "sci_003",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.5582288663686593,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.7281825153296559,
+        "nli_score": 0.5012624110095203,
+        "semantic_score": 0.7889351125766365,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "science",
+        "difficulty": "easy",
+        "question": "What is the speed of light?",
+        "ground_truth_text": "~299,792,458 m/s; constant c; nothing with mass can reach it."
+      }
+    },
+    {
+      "id": "sci_004",
+      "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with mass can reach or exceed the speed of light.",
+      "generated_text": "The speed of light is 186,000 miles per second in vacuum. Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions.",
+      "nli": {
+        "faithfulness_score": 0.4998301972227637,
+        "min_faithfulness": 0.000849983945954591,
+        "max_faithfulness": 0.9988104104995728,
+        "std_faithfulness": 0.4989802132768091,
+        "hallucinated_sentences": 1,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 1,
+        "total_sentences": 2,
+        "hallucination_rate": 0.5,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.9990614056587219,
+            "neutral_prob": 8.866669668350369e-05,
+            "entailment_prob": 0.000849983945954591,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.000849983945954591,
+            "sentence": "The speed of light is 186,000 miles per second in vacuum."
+          },
+          {
+            "contradiction_prob": 0.0011482846457511187,
+            "neutral_prob": 4.134076880291104e-05,
+            "entailment_prob": 0.9988104104995728,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9988104104995728,
+            "sentence": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.7162253260612488,
+        "faithfulness_score": 0.6297617469803944,
+        "bertscore_precision": 0.6777548789978027,
+        "bertscore_recall": 0.5881161093711853,
+        "bertscore_f1": 0.6297617469803944,
+        "mean_sentence_similarity": 0.8129823878407478,
+        "min_sentence_similarity": 0.7337173074483871,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.784494936466217,
+            "faithfulness_score": 0.8922474682331085,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "The speed of light is 186,000 miles per second in vacuum.",
+            "sentence": "The speed of light is 186,000 miles per second in vacuum."
+          },
+          {
+            "cosine_similarity": 0.4674346148967743,
+            "faithfulness_score": 0.7337173074483871,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions.",
+            "sentence": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "The speed of light is 186,000 miles per second in vacuum.",
+            "error": "API_FAILED",
+            "sentence": "The speed of light is 186,000 miles per second in vacuum."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions.",
+            "error": "API_FAILED",
+            "sentence": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.4883929184240462,
+        "nli_score": 0.4998301972227637,
+        "semantic_score": 0.6297617469803944,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.25,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.8775793273906064,
+        "confidence_interval": [
+          0.4998301972227637,
+          0.6297617469803944
+        ],
+        "hallucination_rate": 0.5,
+        "hallucinated_count": 1,
+        "total_sentences": 2,
+        "model_used": "sci_004",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.4883929184240462,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.8775793273906064,
+        "nli_score": 0.4998301972227637,
+        "semantic_score": 0.6297617469803944,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.5,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "fabricated",
+        "domain": "science",
+        "difficulty": "medium",
+        "question": "What is the speed of light and can we exceed it?",
+        "ground_truth_text": "~299,792,458 m/s; cannot be exceeded by matter."
+      }
+    },
+    {
+      "id": "hist_001",
+      "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gave rise to Napoleon Bonaparte, who became Emperor in 1804.",
+      "generated_text": "The French Revolution started in 1789 when the Bastille was stormed on July 14th. This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804.",
+      "nli": {
+        "faithfulness_score": 0.14220831042621285,
+        "min_faithfulness": 0.0038291860837489367,
+        "max_faithfulness": 0.28058743476867676,
+        "std_faithfulness": 0.1383791243424639,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.00016547627456020564,
+            "neutral_prob": 0.7192471027374268,
+            "entailment_prob": 0.28058743476867676,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.28058743476867676,
+            "sentence": "The French Revolution started in 1789 when the Bastille was stormed on July 14th."
+          },
+          {
+            "contradiction_prob": 7.690970960538834e-05,
+            "neutral_prob": 0.9960938096046448,
+            "entailment_prob": 0.0038291860837489367,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.0038291860837489367,
+            "sentence": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9543665647506714,
+        "faithfulness_score": 0.84216636527356,
+        "bertscore_precision": 0.8893508911132812,
+        "bertscore_recall": 0.7997363408406576,
+        "bertscore_f1": 0.84216636527356,
+        "mean_sentence_similarity": 0.866996169090271,
+        "min_sentence_similarity": 0.8145978450775146,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.8387889862060547,
+            "faithfulness_score": 0.9193944931030273,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "The French Revolution started in 1789 when the Bastille was stormed on July 14th.",
+            "sentence": "The French Revolution started in 1789 when the Bastille was stormed on July 14th."
+          },
+          {
+            "cosine_similarity": 0.6291956901550293,
+            "faithfulness_score": 0.8145978450775146,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804.",
+            "sentence": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "The French Revolution started in 1789 when the Bastille was stormed on July 14th.",
+            "error": "API_FAILED",
+            "sentence": "The French Revolution started in 1789 when the Bastille was stormed on July 14th."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804.",
+            "error": "API_FAILED",
+            "sentence": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.44320618170388654,
+        "nli_score": 0.14220831042621285,
+        "semantic_score": 0.84216636527356,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.14220831042621285,
+          0.84216636527356
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "hist_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.44320618170388654,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "nli_score": 0.14220831042621285,
+        "semantic_score": 0.84216636527356,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "history",
+        "difficulty": "easy",
+        "question": "When did the French Revolution begin and what were its key events?",
+        "ground_truth_text": "1789 Bastille storming; monarchy abolished; Louis XVI executed 1793; Napoleon Emperor 1804."
+      }
+    },
+    {
+      "id": "hist_002",
+      "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gave rise to Napoleon Bonaparte, who became Emperor in 1804.",
+      "generated_text": "The French Revolution began in 1787 with widespread protests against King Louis XV. The Bastille was stormed in August 1789. Louis XVI was exiled to England rather than executed. Napoleon took power in 1799 as a general, never becoming Emperor.",
+      "nli": {
+        "faithfulness_score": 0.2460289106647906,
+        "min_faithfulness": 3.1363269954454154e-05,
+        "max_faithfulness": 0.9828914403915405,
+        "std_faithfulness": 0.42542802769406834,
+        "hallucinated_sentences": 3,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 1,
+        "total_sentences": 4,
+        "hallucination_rate": 0.75,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.9988119602203369,
+            "neutral_prob": 3.0106630219961517e-05,
+            "entailment_prob": 0.0011578957783058286,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.0011578957783058286,
+            "sentence": "The French Revolution began in 1787 with widespread protests against King Louis XV."
+          },
+          {
+            "contradiction_prob": 0.01691189594566822,
+            "neutral_prob": 0.00019669687026180327,
+            "entailment_prob": 0.9828914403915405,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9828914403915405,
+            "sentence": "The Bastille was stormed in August 1789."
+          },
+          {
+            "contradiction_prob": 0.999961256980896,
+            "neutral_prob": 3.766230975088547e-06,
+            "entailment_prob": 3.494321936159395e-05,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 3.494321936159395e-05,
+            "sentence": "Louis XVI was exiled to England rather than executed."
+          },
+          {
+            "contradiction_prob": 0.9999618530273438,
+            "neutral_prob": 6.841707545390818e-06,
+            "entailment_prob": 3.1363269954454154e-05,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 3.1363269954454154e-05,
+            "sentence": "Napoleon took power in 1799 as a general, never becoming Emperor."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9285746812820435,
+        "faithfulness_score": 0.6780594788874617,
+        "bertscore_precision": 0.6764405369758606,
+        "bertscore_recall": 0.6796861886978149,
+        "bertscore_f1": 0.6780594788874617,
+        "mean_sentence_similarity": 0.7778030596673489,
+        "min_sentence_similarity": 0.6954724788665771,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.7411928772926331,
+            "faithfulness_score": 0.8705964386463165,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "The French Revolution began in 1787 with widespread protests against King Louis XV.",
+            "sentence": "The French Revolution began in 1787 with widespread protests against King Louis XV."
+          },
+          {
+            "cosine_similarity": 0.6371658444404602,
+            "faithfulness_score": 0.8185829222202301,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "The Bastille was stormed in August 1789.",
+            "sentence": "The Bastille was stormed in August 1789."
+          },
+          {
+            "cosine_similarity": 0.45312079787254333,
+            "faithfulness_score": 0.7265603989362717,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "Louis XVI was exiled to England rather than executed.",
+            "sentence": "Louis XVI was exiled to England rather than executed."
+          },
+          {
+            "cosine_similarity": 0.3909449577331543,
+            "faithfulness_score": 0.6954724788665771,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "Napoleon took power in 1799 as a general, never becoming Emperor.",
+            "sentence": "Napoleon took power in 1799 as a general, never becoming Emperor."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 4,
+        "total_sentences": 4,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "The French Revolution began in 1787 with widespread protests against King Louis XV.",
+            "error": "API_FAILED",
+            "sentence": "The French Revolution began in 1787 with widespread protests against King Louis XV."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "The Bastille was stormed in August 1789.",
+            "error": "API_FAILED",
+            "sentence": "The Bastille was stormed in August 1789."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "Louis XVI was exiled to England rather than executed.",
+            "error": "API_FAILED",
+            "sentence": "Louis XVI was exiled to England rather than executed."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "Napoleon took power in 1799 as a general, never becoming Emperor.",
+            "error": "API_FAILED",
+            "sentence": "Napoleon took power in 1799 as a general, never becoming Emperor."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.39047201451016905,
+        "nli_score": 0.2460289106647906,
+        "semantic_score": 0.6780594788874617,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.125,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.6454380454585364,
+        "confidence_interval": [
+          0.2460289106647906,
+          0.6780594788874618
+        ],
+        "hallucination_rate": 0.75,
+        "hallucinated_count": 3,
+        "total_sentences": 4,
+        "model_used": "hist_002",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.39047201451016905,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.6454380454585364,
+        "nli_score": 0.2460289106647906,
+        "semantic_score": 0.6780594788874617,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.75,
+        "is_hallucinated": true
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "contradictory",
+        "domain": "history",
+        "difficulty": "medium",
+        "question": "Describe the French Revolution.",
+        "ground_truth_text": "Began 1789; Louis XVI (not XV) executed; Napoleon became Emperor 1804."
+      }
+    },
+    {
+      "id": "med_001",
+      "context": "Diabetes mellitus is a metabolic disease characterized by high blood sugar. Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. Type 2 diabetes occurs when the body doesn't use insulin effectively. Both types require different management approaches.",
+      "generated_text": "Type 1 diabetes is autoimmune: the pancreas makes little or no insulin. Type 2 occurs when the body can't use insulin effectively. Both are types of diabetes mellitus but require different management.",
+      "nli": {
+        "faithfulness_score": 0.4251358835026622,
+        "min_faithfulness": 0.004094340838491917,
+        "max_faithfulness": 0.9987154006958008,
+        "std_faithfulness": 0.4201338187077773,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 1,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 8.410371810896322e-05,
+            "neutral_prob": 0.7273179888725281,
+            "entailment_prob": 0.27259790897369385,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.27259790897369385,
+            "sentence": "Type 1 diabetes is autoimmune: the pancreas makes little or no insulin."
+          },
+          {
+            "contradiction_prob": 2.903737004089635e-05,
+            "neutral_prob": 0.0012555645080283284,
+            "entailment_prob": 0.9987154006958008,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9987154006958008,
+            "sentence": "Type 2 occurs when the body can't use insulin effectively."
+          },
+          {
+            "contradiction_prob": 9.760175453266129e-05,
+            "neutral_prob": 0.9958081245422363,
+            "entailment_prob": 0.004094340838491917,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.004094340838491917,
+            "sentence": "Both are types of diabetes mellitus but require different management."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.8761278986930847,
+        "faithfulness_score": 0.76752606218809,
+        "bertscore_precision": 0.8073593179384867,
+        "bertscore_recall": 0.7314385622739792,
+        "bertscore_f1": 0.76752606218809,
+        "mean_sentence_similarity": 0.83765775958697,
+        "min_sentence_similarity": 0.8114352226257324,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.7759099006652832,
+            "faithfulness_score": 0.8879549503326416,
+            "context": "Diabetes mellitus is a metabolic disease characterized by high blood sugar. Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. Type 2 diabetes occurs when the",
+            "claim": "Type 1 diabetes is autoimmune: the pancreas makes little or no insulin.",
+            "sentence": "Type 1 diabetes is autoimmune: the pancreas makes little or no insulin."
+          },
+          {
+            "cosine_similarity": 0.6228704452514648,
+            "faithfulness_score": 0.8114352226257324,
+            "context": "Diabetes mellitus is a metabolic disease characterized by high blood sugar. Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. Type 2 diabetes occurs when the",
+            "claim": "Type 2 occurs when the body can't use insulin effectively.",
+            "sentence": "Type 2 occurs when the body can't use insulin effectively."
+          },
+          {
+            "cosine_similarity": 0.627166211605072,
+            "faithfulness_score": 0.813583105802536,
+            "context": "Diabetes mellitus is a metabolic disease characterized by high blood sugar. Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. Type 2 diabetes occurs when the",
+            "claim": "Both are types of diabetes mellitus but require different management.",
+            "sentence": "Both are types of diabetes mellitus but require different management."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 3,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Diabetes mellitus is a metabolic disease characterized by high blood sugar. Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. Type 2 diabetes occurs when the",
+            "claim": "Type 1 diabetes is autoimmune: the pancreas makes little or no insulin.",
+            "error": "API_FAILED",
+            "sentence": "Type 1 diabetes is autoimmune: the pancreas makes little or no insulin."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Diabetes mellitus is a metabolic disease characterized by high blood sugar. Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. Type 2 diabetes occurs when the",
+            "claim": "Type 2 occurs when the body can't use insulin effectively.",
+            "error": "API_FAILED",
+            "sentence": "Type 2 occurs when the body can't use insulin effectively."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Diabetes mellitus is a metabolic disease characterized by high blood sugar. Type 1 diabetes is an autoimmune condition where the pancreas produces little or no insulin. Type 2 diabetes occurs when the",
+            "claim": "Both are types of diabetes mellitus but require different management.",
+            "error": "API_FAILED",
+            "sentence": "Both are types of diabetes mellitus but require different management."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.5273027716635498,
+        "nli_score": 0.4251358835026622,
+        "semantic_score": 0.76752606218809,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.7060567973615521,
+        "confidence_interval": [
+          0.4251358835026622,
+          0.76752606218809
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 3,
+        "model_used": "med_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.5273027716635498,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.7060567973615521,
+        "nli_score": 0.4251358835026622,
+        "semantic_score": 0.76752606218809,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "medicine",
+        "difficulty": "easy",
+        "question": "What is the difference between Type 1 and Type 2 diabetes?",
+        "ground_truth_text": "Type 1: autoimmune, no insulin production. Type 2: insulin resistance. Different management."
+      }
+    },
+    {
+      "id": "med_002",
+      "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects. At low doses, aspirin also prevents platelet aggregation, reducing clot formation.",
+      "generated_text": "Aspirin inhibits COX enzymes to reduce prostaglandin production, giving it anti-inflammatory and pain-relieving properties. At low doses, it prevents platelets from clumping together, which is why it's used to prevent clots.",
+      "nli": {
+        "faithfulness_score": 0.0415353465359658,
+        "min_faithfulness": 0.00451379781588912,
+        "max_faithfulness": 0.07855689525604248,
+        "std_faithfulness": 0.03702154872007668,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 1.4275606190494727e-05,
+            "neutral_prob": 0.9954719543457031,
+            "entailment_prob": 0.00451379781588912,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.00451379781588912,
+            "sentence": "Aspirin inhibits COX enzymes to reduce prostaglandin production, giving it anti-inflammatory and pain-relieving properties."
+          },
+          {
+            "contradiction_prob": 8.981634891824797e-06,
+            "neutral_prob": 0.9214341044425964,
+            "entailment_prob": 0.07855689525604248,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.07855689525604248,
+            "sentence": "At low doses, it prevents platelets from clumping together, which is why it's used to prevent clots."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9011049270629883,
+        "faithfulness_score": 0.7572545771764756,
+        "bertscore_precision": 0.7861379086971283,
+        "bertscore_recall": 0.7304184238115946,
+        "bertscore_f1": 0.7572545771764756,
+        "mean_sentence_similarity": 0.8312119245529175,
+        "min_sentence_similarity": 0.7593349516391754,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.8061777949333191,
+            "faithfulness_score": 0.9030888974666595,
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "Aspirin inhibits COX enzymes to reduce prostaglandin production, giving it anti-inflammatory and pain-relieving properties.",
+            "sentence": "Aspirin inhibits COX enzymes to reduce prostaglandin production, giving it anti-inflammatory and pain-relieving properties."
+          },
+          {
+            "cosine_similarity": 0.5186699032783508,
+            "faithfulness_score": 0.7593349516391754,
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "At low doses, it prevents platelets from clumping together, which is why it's used to prevent clots.",
+            "sentence": "At low doses, it prevents platelets from clumping together, which is why it's used to prevent clots."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "Aspirin inhibits COX enzymes to reduce prostaglandin production, giving it anti-inflammatory and pain-relieving properties.",
+            "error": "API_FAILED",
+            "sentence": "Aspirin inhibits COX enzymes to reduce prostaglandin production, giving it anti-inflammatory and pain-relieving properties."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "At low doses, it prevents platelets from clumping together, which is why it's used to prevent clots.",
+            "error": "API_FAILED",
+            "sentence": "At low doses, it prevents platelets from clumping together, which is why it's used to prevent clots."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.39098828672288316,
+        "nli_score": 0.0415353465359658,
+        "semantic_score": 0.7572545771764756,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.0415353465359658,
+          0.7572545771764756
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "med_002",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.39098828672288316,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "nli_score": 0.0415353465359658,
+        "semantic_score": 0.7572545771764756,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": true
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "medicine",
+        "difficulty": "medium",
+        "question": "How does aspirin work?",
+        "ground_truth_text": "Inhibits COX enzymes \u2192 reduces prostaglandins \u2192 anti-inflammatory, analgesic; low dose prevents platelet aggregation."
+      }
+    },
+    {
+      "id": "med_003",
+      "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects. At low doses, aspirin also prevents platelet aggregation, reducing clot formation.",
+      "generated_text": "Aspirin works by blocking serotonin receptors in the brain, which reduces pain signals. It also stimulates the production of endorphins, which explain its anti-inflammatory effects. High doses of aspirin activate the immune system to prevent blood clots.",
+      "nli": {
+        "faithfulness_score": 0.9921831289927164,
+        "min_faithfulness": 0.9794862270355225,
+        "max_faithfulness": 0.9988613128662109,
+        "std_faithfulness": 0.008982101211666281,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 3,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.0011117876274511218,
+            "neutral_prob": 2.694933755265083e-05,
+            "entailment_prob": 0.9988613128662109,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9988613128662109,
+            "sentence": "Aspirin works by blocking serotonin receptors in the brain, which reduces pain signals."
+          },
+          {
+            "contradiction_prob": 0.0017609690548852086,
+            "neutral_prob": 3.71455134882126e-05,
+            "entailment_prob": 0.998201847076416,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.998201847076416,
+            "sentence": "It also stimulates the production of endorphins, which explain its anti-inflammatory effects."
+          },
+          {
+            "contradiction_prob": 0.02047145552933216,
+            "neutral_prob": 4.229786281939596e-05,
+            "entailment_prob": 0.9794862270355225,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9794862270355225,
+            "sentence": "High doses of aspirin activate the immune system to prevent blood clots."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.7608758211135864,
+        "faithfulness_score": 0.6902863383293152,
+        "bertscore_precision": 0.6902863383293152,
+        "bertscore_recall": 0.6902863383293152,
+        "bertscore_f1": 0.6902863383293152,
+        "mean_sentence_similarity": 0.8006959706544876,
+        "min_sentence_similarity": 0.7228000611066818,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.6967257857322693,
+            "faithfulness_score": 0.8483628928661346,
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "Aspirin works by blocking serotonin receptors in the brain, which reduces pain signals.",
+            "sentence": "Aspirin works by blocking serotonin receptors in the brain, which reduces pain signals."
+          },
+          {
+            "cosine_similarity": 0.44560012221336365,
+            "faithfulness_score": 0.7228000611066818,
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "It also stimulates the production of endorphins, which explain its anti-inflammatory effects.",
+            "sentence": "It also stimulates the production of endorphins, which explain its anti-inflammatory effects."
+          },
+          {
+            "cosine_similarity": 0.6618499159812927,
+            "faithfulness_score": 0.8309249579906464,
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "High doses of aspirin activate the immune system to prevent blood clots.",
+            "sentence": "High doses of aspirin activate the immune system to prevent blood clots."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 3,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "Aspirin works by blocking serotonin receptors in the brain, which reduces pain signals.",
+            "error": "API_FAILED",
+            "sentence": "Aspirin works by blocking serotonin receptors in the brain, which reduces pain signals."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "It also stimulates the production of endorphins, which explain its anti-inflammatory effects.",
+            "error": "API_FAILED",
+            "sentence": "It also stimulates the production of endorphins, which explain its anti-inflammatory effects."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Aspirin (acetylsalicylic acid) works by inhibiting cyclooxygenase (COX) enzymes, which reduces the production of prostaglandins. This leads to its anti-inflammatory, analgesic, and antipyretic effects",
+            "claim": "High doses of aspirin activate the immune system to prevent blood clots.",
+            "error": "API_FAILED",
+            "sentence": "High doses of aspirin activate the immune system to prevent blood clots."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.7103213628133137,
+        "nli_score": 0.9921831289927164,
+        "semantic_score": 0.6902863383293152,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "FAITHFUL",
+        "confidence": 0.5947046096527175,
+        "confidence_interval": [
+          0.5,
+          0.9921831289927164
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 3,
+        "model_used": "med_003",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.7103213628133137,
+        "verdict": "FAITHFUL",
+        "confidence": 0.5947046096527175,
+        "nli_score": 0.9921831289927164,
+        "semantic_score": 0.6902863383293152,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "fabricated",
+        "domain": "medicine",
+        "difficulty": "hard",
+        "question": "Explain the mechanism of aspirin.",
+        "ground_truth_text": "Inhibits COX enzymes; reduces prostaglandins; prevents platelet aggregation."
+      }
+    },
+    {
+      "id": "tech_001",
+      "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recurrent networks, allowing parallel processing of sequences and capturing long-range dependencies.",
+      "generated_text": "The transformer architecture was introduced in 'Attention Is All You Need' (Vaswani et al., 2017). It uses self-attention instead of RNNs, enabling parallel processing and better capture of long-range dependencies in sequences.",
+      "nli": {
+        "faithfulness_score": 0.006549932644702494,
+        "min_faithfulness": 0.002224176423624158,
+        "max_faithfulness": 0.01087568886578083,
+        "std_faithfulness": 0.004325756221078336,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 6.0888258303748444e-05,
+            "neutral_prob": 0.9977149963378906,
+            "entailment_prob": 0.002224176423624158,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.002224176423624158,
+            "sentence": "The transformer architecture was introduced in 'Attention Is All You Need' (Vaswani et al., 2017)."
+          },
+          {
+            "contradiction_prob": 8.102676656562835e-05,
+            "neutral_prob": 0.9890432357788086,
+            "entailment_prob": 0.01087568886578083,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.01087568886578083,
+            "sentence": "It uses self-attention instead of RNNs, enabling parallel processing and better capture of long-range dependencies in sequences."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.8746081590652466,
+        "faithfulness_score": 0.8252316117286682,
+        "bertscore_precision": 0.8252316117286682,
+        "bertscore_recall": 0.8252316117286682,
+        "bertscore_f1": 0.8252316117286682,
+        "mean_sentence_similarity": 0.8359769135713577,
+        "min_sentence_similarity": 0.8354052901268005,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.6708105802536011,
+            "faithfulness_score": 0.8354052901268005,
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "The transformer architecture was introduced in 'Attention Is All You Need' (Vaswani et al., 2017).",
+            "sentence": "The transformer architecture was introduced in 'Attention Is All You Need' (Vaswani et al., 2017)."
+          },
+          {
+            "cosine_similarity": 0.6730970740318298,
+            "faithfulness_score": 0.8365485370159149,
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "It uses self-attention instead of RNNs, enabling parallel processing and better capture of long-range dependencies in sequences.",
+            "sentence": "It uses self-attention instead of RNNs, enabling parallel processing and better capture of long-range dependencies in sequences."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "The transformer architecture was introduced in 'Attention Is All You Need' (Vaswani et al., 2017).",
+            "error": "API_FAILED",
+            "sentence": "The transformer architecture was introduced in 'Attention Is All You Need' (Vaswani et al., 2017)."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "It uses self-attention instead of RNNs, enabling parallel processing and better capture of long-range dependencies in sequences.",
+            "error": "API_FAILED",
+            "sentence": "It uses self-attention instead of RNNs, enabling parallel processing and better capture of long-range dependencies in sequences."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.3923387987713795,
+        "nli_score": 0.006549932644702494,
+        "semantic_score": 0.8252316117286682,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.006549932644702494,
+          0.8252316117286682
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "tech_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.3923387987713795,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "nli_score": 0.006549932644702494,
+        "semantic_score": 0.8252316117286682,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": true
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "technology",
+        "difficulty": "medium",
+        "question": "What is the transformer architecture?",
+        "ground_truth_text": "2017 paper by Vaswani et al.; uses self-attention; parallel processing; long-range dependencies."
+      }
+    },
+    {
+      "id": "tech_002",
+      "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recurrent networks, allowing parallel processing of sequences and capturing long-range dependencies.",
+      "generated_text": "The transformer was invented by Geoffrey Hinton and his team at Google Brain in 2015. The paper 'Attention Is All You Need' was published in 2019. Transformers use LSTM networks with attention gates to process language sequentially.",
+      "nli": {
+        "faithfulness_score": 0.0003998285731843983,
+        "min_faithfulness": 6.391601345967501e-05,
+        "max_faithfulness": 0.0010019188048318028,
+        "std_faithfulness": 0.0004266928824717764,
+        "hallucinated_sentences": 3,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 0,
+        "total_sentences": 3,
+        "hallucination_rate": 1.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.9999306201934814,
+            "neutral_prob": 5.43462783753057e-06,
+            "entailment_prob": 6.391601345967501e-05,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 6.391601345967501e-05,
+            "sentence": "The transformer was invented by Geoffrey Hinton and his team at Google Brain in 2015."
+          },
+          {
+            "contradiction_prob": 0.9998360872268677,
+            "neutral_prob": 3.027661114174407e-05,
+            "entailment_prob": 0.00013365090126171708,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.00013365090126171708,
+            "sentence": "The paper 'Attention Is All You Need' was published in 2019."
+          },
+          {
+            "contradiction_prob": 0.998908281326294,
+            "neutral_prob": 8.980152051663026e-05,
+            "entailment_prob": 0.0010019188048318028,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.0010019188048318028,
+            "sentence": "Transformers use LSTM networks with attention gates to process language sequentially."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.7953805327415466,
+        "faithfulness_score": 0.5667226344140118,
+        "bertscore_precision": 0.5140126347541809,
+        "bertscore_recall": 0.6314782798290253,
+        "bertscore_f1": 0.5667226344140118,
+        "mean_sentence_similarity": 0.7594777395327886,
+        "min_sentence_similarity": 0.7037868648767471,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.40757372975349426,
+            "faithfulness_score": 0.7037868648767471,
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "The transformer was invented by Geoffrey Hinton and his team at Google Brain in 2015.",
+            "sentence": "The transformer was invented by Geoffrey Hinton and his team at Google Brain in 2015."
+          },
+          {
+            "cosine_similarity": 0.4170462489128113,
+            "faithfulness_score": 0.7085231244564056,
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "The paper 'Attention Is All You Need' was published in 2019.",
+            "sentence": "The paper 'Attention Is All You Need' was published in 2019."
+          },
+          {
+            "cosine_similarity": 0.732246458530426,
+            "faithfulness_score": 0.866123229265213,
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "Transformers use LSTM networks with attention gates to process language sequentially.",
+            "sentence": "Transformers use LSTM networks with attention gates to process language sequentially."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 3,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "The transformer was invented by Geoffrey Hinton and his team at Google Brain in 2015.",
+            "error": "API_FAILED",
+            "sentence": "The transformer was invented by Geoffrey Hinton and his team at Google Brain in 2015."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "The paper 'Attention Is All You Need' was published in 2019.",
+            "error": "API_FAILED",
+            "sentence": "The paper 'Attention Is All You Need' was published in 2019."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The transformer architecture, introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al., revolutionized natural language processing. It uses self-attention mechanisms instead of recur",
+            "claim": "Transformers use LSTM networks with attention gates to process language sequentially.",
+            "error": "API_FAILED",
+            "sentence": "Transformers use LSTM networks with attention gates to process language sequentially."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.2634844668834169,
+        "nli_score": 0.0003998285731843983,
+        "semantic_score": 0.5667226344140118,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.0,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.0003998285731843983,
+          0.5667226344140118
+        ],
+        "hallucination_rate": 1.0,
+        "hallucinated_count": 3,
+        "total_sentences": 3,
+        "model_used": "tech_002",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.2634844668834169,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "nli_score": 0.0003998285731843983,
+        "semantic_score": 0.5667226344140118,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 1.0,
+        "is_hallucinated": true
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "contradictory",
+        "domain": "technology",
+        "difficulty": "medium",
+        "question": "Who created the transformer architecture and when?",
+        "ground_truth_text": "Vaswani et al., 2017; self-attention (not LSTM); parallel not sequential."
+      }
+    },
+    {
+      "id": "tech_003",
+      "context": "Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991. Known for its readable syntax and versatility, Python supports multiple programming paradigms including procedural, object-oriented, and functional programming.",
+      "generated_text": "Python is a high-level interpreted language by Guido van Rossum, released in 1991. It's known for clean syntax and supports procedural, OOP, and functional paradigms.",
+      "nli": {
+        "faithfulness_score": 0.003033461282029748,
+        "min_faithfulness": 0.002585955895483494,
+        "max_faithfulness": 0.003480966668576002,
+        "std_faithfulness": 0.00044750538654625416,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 5.1398736104601994e-05,
+            "neutral_prob": 0.9964675903320312,
+            "entailment_prob": 0.003480966668576002,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.003480966668576002,
+            "sentence": "Python is a high-level interpreted language by Guido van Rossum, released in 1991."
+          },
+          {
+            "contradiction_prob": 3.0694023735122755e-05,
+            "neutral_prob": 0.9973834156990051,
+            "entailment_prob": 0.002585955895483494,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.002585955895483494,
+            "sentence": "It's known for clean syntax and supports procedural, OOP, and functional paradigms."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.8987687230110168,
+        "faithfulness_score": 0.756473183631897,
+        "bertscore_precision": 0.756473183631897,
+        "bertscore_recall": 0.756473183631897,
+        "bertscore_f1": 0.756473183631897,
+        "mean_sentence_similarity": 0.8080070689320564,
+        "min_sentence_similarity": 0.710586205124855,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.8108558654785156,
+            "faithfulness_score": 0.9054279327392578,
+            "context": "Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991. Known for its readable syntax and versatility, Python supports multiple programming par",
+            "claim": "Python is a high-level interpreted language by Guido van Rossum, released in 1991.",
+            "sentence": "Python is a high-level interpreted language by Guido van Rossum, released in 1991."
+          },
+          {
+            "cosine_similarity": 0.4211724102497101,
+            "faithfulness_score": 0.710586205124855,
+            "context": "Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991. Known for its readable syntax and versatility, Python supports multiple programming par",
+            "claim": "It's known for clean syntax and supports procedural, OOP, and functional paradigms.",
+            "sentence": "It's known for clean syntax and supports procedural, OOP, and functional paradigms."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991. Known for its readable syntax and versatility, Python supports multiple programming par",
+            "claim": "Python is a high-level interpreted language by Guido van Rossum, released in 1991.",
+            "error": "API_FAILED",
+            "sentence": "Python is a high-level interpreted language by Guido van Rossum, released in 1991."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991. Known for its readable syntax and versatility, Python supports multiple programming par",
+            "claim": "It's known for clean syntax and supports procedural, OOP, and functional paradigms.",
+            "error": "API_FAILED",
+            "sentence": "It's known for clean syntax and supports procedural, OOP, and functional paradigms."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.37735634817508984,
+        "nli_score": 0.003033461282029748,
+        "semantic_score": 0.756473183631897,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.003033461282029748,
+          0.756473183631897
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "tech_003",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.37735634817508984,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "nli_score": 0.003033461282029748,
+        "semantic_score": 0.756473183631897,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": true
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "technology",
+        "difficulty": "easy",
+        "question": "Tell me about Python programming language.",
+        "ground_truth_text": "High-level, interpreted; created by Guido van Rossum; released 1991; multi-paradigm."
+      }
+    },
+    {
+      "id": "geo_001",
+      "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by Edmund Hillary and Tenzing Norgay.",
+      "generated_text": "Mount Everest is the world's highest mountain at 8,848.86 meters, on the Nepal-Tibet border in the Himalayas. It was first climbed on May 29, 1953 by Edmund Hillary and Tenzing Norgay.",
+      "nli": {
+        "faithfulness_score": 0.0025179017684422433,
+        "min_faithfulness": 0.0016062726499512792,
+        "max_faithfulness": 0.0034295308869332075,
+        "std_faithfulness": 0.0009116291184909642,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 4.847482705372386e-05,
+            "neutral_prob": 0.9983452558517456,
+            "entailment_prob": 0.0016062726499512792,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.0016062726499512792,
+            "sentence": "Mount Everest is the world's highest mountain at 8,848.86 meters, on the Nepal-Tibet border in the Himalayas."
+          },
+          {
+            "contradiction_prob": 0.00012576853623613715,
+            "neutral_prob": 0.9964446425437927,
+            "entailment_prob": 0.0034295308869332075,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.0034295308869332075,
+            "sentence": "It was first climbed on May 29, 1953 by Edmund Hillary and Tenzing Norgay."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9316561818122864,
+        "faithfulness_score": 0.9051762223243713,
+        "bertscore_precision": 0.9051762223243713,
+        "bertscore_recall": 0.9051762223243713,
+        "bertscore_f1": 0.9051762223243713,
+        "mean_sentence_similarity": 0.8426970392465591,
+        "min_sentence_similarity": 0.7367094159126282,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.8973693251609802,
+            "faithfulness_score": 0.9486846625804901,
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "Mount Everest is the world's highest mountain at 8,848.86 meters, on the Nepal-Tibet border in the Himalayas.",
+            "sentence": "Mount Everest is the world's highest mountain at 8,848.86 meters, on the Nepal-Tibet border in the Himalayas."
+          },
+          {
+            "cosine_similarity": 0.47341883182525635,
+            "faithfulness_score": 0.7367094159126282,
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "It was first climbed on May 29, 1953 by Edmund Hillary and Tenzing Norgay.",
+            "sentence": "It was first climbed on May 29, 1953 by Edmund Hillary and Tenzing Norgay."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "Mount Everest is the world's highest mountain at 8,848.86 meters, on the Nepal-Tibet border in the Himalayas.",
+            "error": "API_FAILED",
+            "sentence": "Mount Everest is the world's highest mountain at 8,848.86 meters, on the Nepal-Tibet border in the Himalayas."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "It was first climbed on May 29, 1953 by Edmund Hillary and Tenzing Norgay.",
+            "error": "API_FAILED",
+            "sentence": "It was first climbed on May 29, 1953 by Edmund Hillary and Tenzing Norgay."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.40691651008382906,
+        "nli_score": 0.0025179017684422433,
+        "semantic_score": 0.9051762223243713,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.0025179017684422433,
+          0.9051762223243713
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "geo_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.40691651008382906,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "nli_score": 0.0025179017684422433,
+        "semantic_score": 0.9051762223243713,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "geography",
+        "difficulty": "easy",
+        "question": "What is Mount Everest and where is it?",
+        "ground_truth_text": "8,848.86m; Nepal-Tibet border; first summit May 29, 1953 by Hillary and Norgay."
+      }
+    },
+    {
+      "id": "geo_002",
+      "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by Edmund Hillary and Tenzing Norgay.",
+      "generated_text": "Mount Everest was first summited in 1952 by a Swiss expedition led by Raymond Lambert and Tenzing Norgay, who reached the top on October 3rd. The mountain stands at 8,900 meters on the India-Nepal border.",
+      "nli": {
+        "faithfulness_score": 0.00020401806250447407,
+        "min_faithfulness": 7.734117389190942e-05,
+        "max_faithfulness": 0.0003306949511170387,
+        "std_faithfulness": 0.00012667688861256465,
+        "hallucinated_sentences": 2,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 1.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.9999104738235474,
+            "neutral_prob": 1.2133308700867929e-05,
+            "entailment_prob": 7.734117389190942e-05,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 7.734117389190942e-05,
+            "sentence": "Mount Everest was first summited in 1952 by a Swiss expedition led by Raymond Lambert and Tenzing Norgay, who reached the top on October 3rd."
+          },
+          {
+            "contradiction_prob": 0.999640941619873,
+            "neutral_prob": 2.8411375751602463e-05,
+            "entailment_prob": 0.0003306949511170387,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.0003306949511170387,
+            "sentence": "The mountain stands at 8,900 meters on the India-Nepal border."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.7709643840789795,
+        "faithfulness_score": 0.7238642275333405,
+        "bertscore_precision": 0.7238642275333405,
+        "bertscore_recall": 0.7238642275333405,
+        "bertscore_f1": 0.7238642275333405,
+        "mean_sentence_similarity": 0.8162463903427124,
+        "min_sentence_similarity": 0.7992183864116669,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.5984367728233337,
+            "faithfulness_score": 0.7992183864116669,
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "Mount Everest was first summited in 1952 by a Swiss expedition led by Raymond Lambert and Tenzing Norgay, who reached the top on October 3rd.",
+            "sentence": "Mount Everest was first summited in 1952 by a Swiss expedition led by Raymond Lambert and Tenzing Norgay, who reached the top on October 3rd."
+          },
+          {
+            "cosine_similarity": 0.6665487885475159,
+            "faithfulness_score": 0.8332743942737579,
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "The mountain stands at 8,900 meters on the India-Nepal border.",
+            "sentence": "The mountain stands at 8,900 meters on the India-Nepal border."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 2,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "Mount Everest was first summited in 1952 by a Swiss expedition led by Raymond Lambert and Tenzing Norgay, who reached the top on October 3rd.",
+            "error": "API_FAILED",
+            "sentence": "Mount Everest was first summited in 1952 by a Swiss expedition led by Raymond Lambert and Tenzing Norgay, who reached the top on October 3rd."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "Mount Everest, located in the Himalayas on the border between Nepal and Tibet, is Earth's highest mountain at 8,848.86 meters (29,031.7 feet) above sea level. It was first summited on May 29, 1953 by ",
+            "claim": "The mountain stands at 8,900 meters on the India-Nepal border.",
+            "error": "API_FAILED",
+            "sentence": "The mountain stands at 8,900 meters on the India-Nepal border."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.2948442518285447,
+        "nli_score": 0.00020401806250447407,
+        "semantic_score": 0.7238642275333405,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.0,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.00020401806250447407,
+          0.7238642275333405
+        ],
+        "hallucination_rate": 1.0,
+        "hallucinated_count": 2,
+        "total_sentences": 2,
+        "model_used": "geo_002",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.2948442518285447,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "nli_score": 0.00020401806250447407,
+        "semantic_score": 0.7238642275333405,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 1.0,
+        "is_hallucinated": true
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "contradictory",
+        "domain": "geography",
+        "difficulty": "medium",
+        "question": "Who first climbed Everest?",
+        "ground_truth_text": "Hillary and Norgay, May 29, 1953; 8,848.86m; Nepal-Tibet border."
+      }
+    },
+    {
+      "id": "unsup_001",
+      "context": "The Amazon River is the largest river in the world by discharge volume of water. It flows through South America, primarily through Brazil. The river basin contains the Amazon rainforest, which is the world's largest tropical rainforest.",
+      "generated_text": "The Amazon River is the largest by water discharge, flowing mainly through Brazil in South America. Its basin contains the world's largest tropical rainforest. The Amazon was named after female warriors by Spanish explorer Francisco de Orellana in 1541 after a legendary battle.",
+      "nli": {
+        "faithfulness_score": 0.3439949988387525,
+        "min_faithfulness": 0.002191851381212473,
+        "max_faithfulness": 0.9986623525619507,
+        "std_faithfulness": 0.46307045799570506,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 1,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 2.2987562260823324e-05,
+            "neutral_prob": 0.997785210609436,
+            "entailment_prob": 0.002191851381212473,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.002191851381212473,
+            "sentence": "The Amazon River is the largest by water discharge, flowing mainly through Brazil in South America."
+          },
+          {
+            "contradiction_prob": 3.299015952507034e-05,
+            "neutral_prob": 0.9688361883163452,
+            "entailment_prob": 0.031130792573094368,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.031130792573094368,
+            "sentence": "Its basin contains the world's largest tropical rainforest."
+          },
+          {
+            "contradiction_prob": 0.001258188160136342,
+            "neutral_prob": 7.943455420900136e-05,
+            "entailment_prob": 0.9986623525619507,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9986623525619507,
+            "sentence": "The Amazon was named after female warriors by Spanish explorer Francisco de Orellana in 1541 after a legendary battle."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9370693564414978,
+        "faithfulness_score": 0.7417684733400848,
+        "bertscore_precision": 0.6828234195709229,
+        "bertscore_recall": 0.811851978302002,
+        "bertscore_f1": 0.7417684733400848,
+        "mean_sentence_similarity": 0.8216854184865952,
+        "min_sentence_similarity": 0.6608373373746872,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.9065136313438416,
+            "faithfulness_score": 0.9532568156719208,
+            "context": "The Amazon River is the largest river in the world by discharge volume of water. It flows through South America, primarily through Brazil. The river basin contains the Amazon rainforest, which is the ",
+            "claim": "The Amazon River is the largest by water discharge, flowing mainly through Brazil in South America.",
+            "sentence": "The Amazon River is the largest by water discharge, flowing mainly through Brazil in South America."
+          },
+          {
+            "cosine_similarity": 0.701924204826355,
+            "faithfulness_score": 0.8509621024131775,
+            "context": "The Amazon River is the largest river in the world by discharge volume of water. It flows through South America, primarily through Brazil. The river basin contains the Amazon rainforest, which is the ",
+            "claim": "Its basin contains the world's largest tropical rainforest.",
+            "sentence": "Its basin contains the world's largest tropical rainforest."
+          },
+          {
+            "cosine_similarity": 0.3216746747493744,
+            "faithfulness_score": 0.6608373373746872,
+            "context": "The Amazon River is the largest river in the world by discharge volume of water. It flows through South America, primarily through Brazil. The river basin contains the Amazon rainforest, which is the ",
+            "claim": "The Amazon was named after female warriors by Spanish explorer Francisco de Orellana in 1541 after a legendary battle.",
+            "sentence": "The Amazon was named after female warriors by Spanish explorer Francisco de Orellana in 1541 after a legendary battle."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 3,
+        "total_sentences": 3,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The Amazon River is the largest river in the world by discharge volume of water. It flows through South America, primarily through Brazil. The river basin contains the Amazon rainforest, which is the ",
+            "claim": "The Amazon River is the largest by water discharge, flowing mainly through Brazil in South America.",
+            "error": "API_FAILED",
+            "sentence": "The Amazon River is the largest by water discharge, flowing mainly through Brazil in South America."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The Amazon River is the largest river in the world by discharge volume of water. It flows through South America, primarily through Brazil. The river basin contains the Amazon rainforest, which is the ",
+            "claim": "Its basin contains the world's largest tropical rainforest.",
+            "error": "API_FAILED",
+            "sentence": "Its basin contains the world's largest tropical rainforest."
+          },
+          {
+            "verdict": "UNCERTAIN",
+            "confidence": 0.5,
+            "faithfulness_score": 0.5,
+            "reason": "Scoring failed: API_FAILED",
+            "claim_type": "unknown",
+            "context": "The Amazon River is the largest river in the world by discharge volume of water. It flows through South America, primarily through Brazil. The river basin contains the Amazon rainforest, which is the ",
+            "claim": "The Amazon was named after female warriors by Spanish explorer Francisco de Orellana in 1541 after a legendary battle.",
+            "error": "API_FAILED",
+            "sentence": "The Amazon was named after female warriors by Spanish explorer Francisco de Orellana in 1541 after a legendary battle."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.49375194426158037,
+        "nli_score": 0.3439949988387525,
+        "semantic_score": 0.7417684733400848,
+        "llm_judge_score": 0.5,
+        "factuality_bonus": 0.5,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.6727126358786496,
+        "confidence_interval": [
+          0.3439949988387525,
+          0.7417684733400848
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 3,
+        "model_used": "unsup_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.49375194426158037,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.6727126358786496,
+        "nli_score": 0.3439949988387525,
+        "semantic_score": 0.7417684733400848,
+        "llm_judge_score": 0.5,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "unsupported",
+        "domain": "general",
+        "difficulty": "hard",
+        "question": "Tell me about the Amazon River.",
+        "ground_truth_text": "Largest by discharge; flows through Brazil; Amazon rainforest basin."
+      }
+    }
+  ],
+  "timestamp": "2026-03-31 15uman:28:11",
+  "config": {
+    "nli_model": "cross-encoder/nli-deberta-v3-base",
+    "semantic_model": "all-MiniLM-L6-v2",
+    "llm_judge_model": "gemini-2.5-flash",
+    "weights": {
+      "nli": 0.35,
+      "semantic": 0.2,
+      "llm_judge": 0.3,
+      "factuality": 0.15
+    },
+    "threshold": 0.5
+  }
+}

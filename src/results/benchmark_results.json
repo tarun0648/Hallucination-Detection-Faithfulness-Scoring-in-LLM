@@ -1,0 +1,741 @@
+{
+  "benchmark_stats": {
+    "total_samples": 15,
+    "faithful_samples": 8,
+    "hallucinated_samples": 7,
+    "balance_ratio": 0.5333333333333333,
+    "domains": {
+      "science": 4,
+      "history": 2,
+      "medicine": 3,
+      "technology": 3,
+      "geography": 2,
+      "general": 1
+    },
+    "hallucination_types": {
+      "contradictory": 4,
+      "fabricated": 2,
+      "unsupported": 1
+    },
+    "difficulty_breakdown": {
+      "easy": 7,
+      "medium": 6,
+      "hard": 2
+    }
+  },
+  "evaluation_metrics": {
+    "accuracy": 0.8,
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1_score": 0.8571,
+    "roc_auc": 1.0,
+    "confusion_matrix": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "spearman_r": 0.866,
+    "pearson_r": 0.6965,
+    "domain_accuracy": {
+      "science": 0.75,
+      "history": 1.0
+    },
+    "total_evaluated": 5,
+    "mean_hallu_score_faithful": 0.5668,
+    "mean_hallu_score_hallucinated": 0.4616
+  },
+  "per_sample_results": [
+    {
+      "id": "sci_001",
+      "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stages: the light-dependent reactions and the Calvin cycle.",
+      "generated_text": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen. It happens in the chloroplasts through two stages: light reactions and the Calvin cycle.",
+      "nli": {
+        "faithfulness_score": 0.014126379042863846,
+        "min_faithfulness": 0.0021654777228832245,
+        "max_faithfulness": 0.026087280362844467,
+        "std_faithfulness": 0.011960901319980621,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 2.9126673325663432e-05,
+            "neutral_prob": 0.9738836288452148,
+            "entailment_prob": 0.026087280362844467,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.026087280362844467,
+            "sentence": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen."
+          },
+          {
+            "contradiction_prob": 9.836829849518836e-05,
+            "neutral_prob": 0.9977360963821411,
+            "entailment_prob": 0.0021654777228832245,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.0021654777228832245,
+            "sentence": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9620082974433899,
+        "faithfulness_score": 0.9388253390789032,
+        "bertscore_precision": 0.9388253390789032,
+        "bertscore_recall": 0.9388253390789032,
+        "bertscore_f1": 0.9388253390789032,
+        "mean_sentence_similarity": 0.9005385488271713,
+        "min_sentence_similarity": 0.841990202665329,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.9181737899780273,
+            "faithfulness_score": 0.9590868949890137,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen.",
+            "sentence": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen."
+          },
+          {
+            "cosine_similarity": 0.683980405330658,
+            "faithfulness_score": 0.841990202665329,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle.",
+            "sentence": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 1.0,
+        "verdict": "FAITHFUL",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 2,
+        "uncertain_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "claim": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen.",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "verdict": "FAITHFUL",
+            "faithfulness_score": 1.0,
+            "reason": "The claim accurately reflects the inputs (sunlight, water, CO2) and outputs (glucose, oxygen) of photosynthesis as described in the context.",
+            "model": "gemini-2.5-flash",
+            "sentence": "Photosynthesis is when plants use sunlight, water, and CO2 to make glucose and oxygen."
+          },
+          {
+            "claim": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle.",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "verdict": "FAITHFUL",
+            "faithfulness_score": 1.0,
+            "reason": "The claim correctly states the location (chloroplasts) and the two stages (light reactions, Calvin cycle) of photosynthesis, consistent with the context's 'light-dependent reactions' and 'Calvin cycle'.",
+            "model": "gemini-2.5-flash",
+            "sentence": "It happens in the chloroplasts through two stages: light reactions and the Calvin cycle."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.511459300480783,
+        "nli_score": 0.014126379042863846,
+        "semantic_score": 0.9388253390789032,
+        "llm_judge_score": 1.0,
+        "factuality_bonus": 0.125,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.014126379042863846,
+          1.0
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "sci_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.511459300480783,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "nli_score": 0.014126379042863846,
+        "semantic_score": 0.9388253390789032,
+        "llm_judge_score": 1.0,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "science",
+        "difficulty": "easy",
+        "question": "Explain how photosynthesis works.",
+        "ground_truth_text": "Plants use sunlight, water, and CO2 to produce glucose and oxygen in chloroplasts via light-dependent reactions and Calvin cycle."
+      }
+    },
+    {
+      "id": "sci_002",
+      "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stages: the light-dependent reactions and the Calvin cycle.",
+      "generated_text": "Photosynthesis occurs in the mitochondria of plant cells. Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation. The process releases carbon dioxide as a byproduct.",
+      "nli": {
+        "faithfulness_score": 0.6644551559196165,
+        "min_faithfulness": 0.00044453260488808155,
+        "max_faithfulness": 0.9976531863212585,
+        "std_faithfulness": 0.46952742446287665,
+        "hallucinated_sentences": 1,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 2,
+        "total_sentences": 3,
+        "hallucination_rate": 0.3333333333333333,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.9994833469390869,
+            "neutral_prob": 7.207182352431118e-05,
+            "entailment_prob": 0.00044453260488808155,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.00044453260488808155,
+            "sentence": "Photosynthesis occurs in the mitochondria of plant cells."
+          },
+          {
+            "contradiction_prob": 0.004190796986222267,
+            "neutral_prob": 0.0005415254854597151,
+            "entailment_prob": 0.9952677488327026,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9952677488327026,
+            "sentence": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation."
+          },
+          {
+            "contradiction_prob": 0.001960388384759426,
+            "neutral_prob": 0.0003863957244902849,
+            "entailment_prob": 0.9976531863212585,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9976531863212585,
+            "sentence": "The process releases carbon dioxide as a byproduct."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.8495050072669983,
+        "faithfulness_score": 0.6483045963806673,
+        "bertscore_precision": 0.645764152208964,
+        "bertscore_recall": 0.6508651077747345,
+        "bertscore_f1": 0.6483045963806673,
+        "mean_sentence_similarity": 0.8173222343126932,
+        "min_sentence_similarity": 0.7653531432151794,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.7215174436569214,
+            "faithfulness_score": 0.8607587218284607,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Photosynthesis occurs in the mitochondria of plant cells.",
+            "sentence": "Photosynthesis occurs in the mitochondria of plant cells."
+          },
+          {
+            "cosine_similarity": 0.6517096757888794,
+            "faithfulness_score": 0.8258548378944397,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation.",
+            "sentence": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation."
+          },
+          {
+            "cosine_similarity": 0.5307062864303589,
+            "faithfulness_score": 0.7653531432151794,
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "claim": "The process releases carbon dioxide as a byproduct.",
+            "sentence": "The process releases carbon dioxide as a byproduct."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.0,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "hallucinated_sentences": 3,
+        "faithful_sentences": 0,
+        "uncertain_sentences": 0,
+        "total_sentences": 3,
+        "hallucination_rate": 1.0,
+        "sentence_scores": [
+          {
+            "claim": "Photosynthesis occurs in the mitochondria of plant cells.",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "verdict": "HALLUCINATED",
+            "faithfulness_score": 0.0,
+            "reason": "The context states photosynthesis occurs in the chloroplasts, not the mitochondria.",
+            "model": "gemini-2.5-flash",
+            "sentence": "Photosynthesis occurs in the mitochondria of plant cells."
+          },
+          {
+            "claim": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation.",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "verdict": "HALLUCINATED",
+            "faithfulness_score": 0.0,
+            "reason": "The context states plants use sunlight, water, and carbon dioxide to produce glucose, with no mention of nitrogen or ultraviolet radiation for this process.",
+            "model": "gemini-2.5-flash",
+            "sentence": "Plants absorb nitrogen from the air and convert it to glucose using ultraviolet radiation."
+          },
+          {
+            "claim": "The process releases carbon dioxide as a byproduct.",
+            "context": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts and involves two stage",
+            "verdict": "HALLUCINATED",
+            "faithfulness_score": 0.0,
+            "reason": "The context states carbon dioxide is used as an input for photosynthesis, and oxygen is produced, not carbon dioxide as a byproduct.",
+            "model": "gemini-2.5-flash",
+            "sentence": "The process releases carbon dioxide as a byproduct."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.42347022384799926,
+        "nli_score": 0.6644551559196165,
+        "semantic_score": 0.6483045963806673,
+        "llm_judge_score": 0.0,
+        "factuality_bonus": 0.4083333333333333,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.0,
+          0.6644551559196165
+        ],
+        "hallucination_rate": 0.3333333333333333,
+        "hallucinated_count": 1,
+        "total_sentences": 3,
+        "model_used": "sci_002",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.42347022384799926,
+        "verdict": "HALLUCINATED",
+        "confidence": 0.5,
+        "nli_score": 0.6644551559196165,
+        "semantic_score": 0.6483045963806673,
+        "llm_judge_score": 0.0,
+        "hallucination_rate": 0.3333333333333333,
+        "is_hallucinated": true
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "contradictory",
+        "domain": "science",
+        "difficulty": "easy",
+        "question": "Explain how photosynthesis works.",
+        "ground_truth_text": "Occurs in chloroplasts; uses sunlight, water, CO2; produces oxygen and glucose."
+      }
+    },
+    {
+      "id": "sci_003",
+      "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with mass can reach or exceed the speed of light.",
+      "generated_text": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'. According to Einstein's special relativity, objects with mass cannot reach this speed.",
+      "nli": {
+        "faithfulness_score": 0.5012624110095203,
+        "min_faithfulness": 0.009420185349881649,
+        "max_faithfulness": 0.9931046366691589,
+        "std_faithfulness": 0.49184222565963864,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 1,
+        "faithful_sentences": 1,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.0057798512279987335,
+            "neutral_prob": 0.0011154551757499576,
+            "entailment_prob": 0.9931046366691589,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9931046366691589,
+            "sentence": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'."
+          },
+          {
+            "contradiction_prob": 9.641022188588977e-05,
+            "neutral_prob": 0.9904834032058716,
+            "entailment_prob": 0.009420185349881649,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.009420185349881649,
+            "sentence": "According to Einstein's special relativity, objects with mass cannot reach this speed."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9236337542533875,
+        "faithfulness_score": 0.7889351125766365,
+        "bertscore_precision": 0.8353689312934875,
+        "bertscore_recall": 0.7473915020624796,
+        "bertscore_f1": 0.7889351125766365,
+        "mean_sentence_similarity": 0.8614941239356995,
+        "min_sentence_similarity": 0.8120566010475159,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.8218632936477661,
+            "faithfulness_score": 0.9109316468238831,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'.",
+            "sentence": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'."
+          },
+          {
+            "cosine_similarity": 0.6241132020950317,
+            "faithfulness_score": 0.8120566010475159,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "According to Einstein's special relativity, objects with mass cannot reach this speed.",
+            "sentence": "According to Einstein's special relativity, objects with mass cannot reach this speed."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.75,
+        "verdict": "FAITHFUL",
+        "confidence": 0.5,
+        "hallucinated_sentences": 1,
+        "faithful_sentences": 1,
+        "uncertain_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.5,
+        "sentence_scores": [
+          {
+            "claim": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'.",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "verdict": "HALLUCINATED",
+            "faithfulness_score": 0.5,
+            "reason": "The context states the speed is 'approximately' 299,792,458 m/s, while the claim states it is 'exactly' this value.",
+            "model": "gemini-2.5-flash",
+            "sentence": "The speed of light in vacuum is exactly 299,792,458 m/s, denoted as 'c'."
+          },
+          {
+            "claim": "According to Einstein's special relativity, objects with mass cannot reach this speed.",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "verdict": "FAITHFUL",
+            "faithfulness_score": 1.0,
+            "reason": "The context explicitly states that nothing with mass can reach or exceed the speed of light, and links 'c' to Einstein's theory of special relativity.",
+            "model": "gemini-2.5-flash",
+            "sentence": "According to Einstein's special relativity, objects with mass cannot reach this speed."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.6519788663686594,
+        "nli_score": 0.5012624110095203,
+        "semantic_score": 0.7889351125766365,
+        "llm_judge_score": 0.75,
+        "factuality_bonus": 0.625,
+        "verdict": "FAITHFUL",
+        "confidence": 0.7451432520937168,
+        "confidence_interval": [
+          0.5012624110095203,
+          0.7889351125766365
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "sci_003",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.6519788663686594,
+        "verdict": "FAITHFUL",
+        "confidence": 0.7451432520937168,
+        "nli_score": 0.5012624110095203,
+        "semantic_score": 0.7889351125766365,
+        "llm_judge_score": 0.75,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "science",
+        "difficulty": "easy",
+        "question": "What is the speed of light?",
+        "ground_truth_text": "~299,792,458 m/s; constant c; nothing with mass can reach it."
+      }
+    },
+    {
+      "id": "sci_004",
+      "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with mass can reach or exceed the speed of light.",
+      "generated_text": "The speed of light is 186,000 miles per second in vacuum. Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions.",
+      "nli": {
+        "faithfulness_score": 0.4998301972227637,
+        "min_faithfulness": 0.000849983945954591,
+        "max_faithfulness": 0.9988104104995728,
+        "std_faithfulness": 0.4989802132768091,
+        "hallucinated_sentences": 1,
+        "uncertain_sentences": 0,
+        "faithful_sentences": 1,
+        "total_sentences": 2,
+        "hallucination_rate": 0.5,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.9990614056587219,
+            "neutral_prob": 8.866669668350369e-05,
+            "entailment_prob": 0.000849983945954591,
+            "predicted_label": "CONTRADICTION",
+            "faithfulness_score": 0.000849983945954591,
+            "sentence": "The speed of light is 186,000 miles per second in vacuum."
+          },
+          {
+            "contradiction_prob": 0.0011482846457511187,
+            "neutral_prob": 4.134076880291104e-05,
+            "entailment_prob": 0.9988104104995728,
+            "predicted_label": "ENTAILMENT",
+            "faithfulness_score": 0.9988104104995728,
+            "sentence": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.7162253260612488,
+        "faithfulness_score": 0.6297617469803944,
+        "bertscore_precision": 0.6777548789978027,
+        "bertscore_recall": 0.5881161093711853,
+        "bertscore_f1": 0.6297617469803944,
+        "mean_sentence_similarity": 0.8129823878407478,
+        "min_sentence_similarity": 0.7337173074483871,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.784494936466217,
+            "faithfulness_score": 0.8922474682331085,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "The speed of light is 186,000 miles per second in vacuum.",
+            "sentence": "The speed of light is 186,000 miles per second in vacuum."
+          },
+          {
+            "cosine_similarity": 0.4674346148967743,
+            "faithfulness_score": 0.7337173074483871,
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "claim": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions.",
+            "sentence": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 0.45,
+        "verdict": "FAITHFUL",
+        "confidence": 0.5,
+        "hallucinated_sentences": 1,
+        "faithful_sentences": 1,
+        "uncertain_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.5,
+        "sentence_scores": [
+          {
+            "claim": "The speed of light is 186,000 miles per second in vacuum.",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "verdict": "FAITHFUL",
+            "faithfulness_score": 0.9,
+            "reason": "The context states the speed of light is approximately 299,792,458 m/s. Converting this to miles per second (1 mile = 1609.34 meters) yields approximately 186,282 miles/second, making 186,000 miles per second a faithful approximation.",
+            "model": "gemini-2.5-flash",
+            "sentence": "The speed of light is 186,000 miles per second in vacuum."
+          },
+          {
+            "claim": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions.",
+            "context": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3\u00d710^8 m/s). This constant, denoted as 'c', is fundamental to Einstein's theory of special relativity. Nothing with",
+            "verdict": "HALLUCINATED",
+            "faithfulness_score": 0.0,
+            "reason": "The context explicitly states 'Nothing with mass can reach or exceed the speed of light.' Neutrinos have mass, and therefore cannot exceed the speed of light. The claim directly contradicts this fundamental principle stated in the context.",
+            "model": "gemini-2.5-flash",
+            "sentence": "Recent experiments at CERN in 2022 demonstrated that neutrinos can travel at 1.3 times the speed of light under certain quantum conditions."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.4996429184240462,
+        "nli_score": 0.4998301972227637,
+        "semantic_score": 0.6297617469803944,
+        "llm_judge_score": 0.45,
+        "factuality_bonus": 0.425,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.8484457678949764,
+        "confidence_interval": [
+          0.45,
+          0.6297617469803944
+        ],
+        "hallucination_rate": 0.5,
+        "hallucinated_count": 1,
+        "total_sentences": 2,
+        "model_used": "sci_004",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.4996429184240462,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.8484457678949764,
+        "nli_score": 0.4998301972227637,
+        "semantic_score": 0.6297617469803944,
+        "llm_judge_score": 0.45,
+        "hallucination_rate": 0.5,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": false,
+        "hallucination_type": "fabricated",
+        "domain": "science",
+        "difficulty": "medium",
+        "question": "What is the speed of light and can we exceed it?",
+        "ground_truth_text": "~299,792,458 m/s; cannot be exceeded by matter."
+      }
+    },
+    {
+      "id": "hist_001",
+      "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gave rise to Napoleon Bonaparte, who became Emperor in 1804.",
+      "generated_text": "The French Revolution started in 1789 when the Bastille was stormed on July 14th. This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804.",
+      "nli": {
+        "faithfulness_score": 0.14220831042621285,
+        "min_faithfulness": 0.0038291860837489367,
+        "max_faithfulness": 0.28058743476867676,
+        "std_faithfulness": 0.1383791243424639,
+        "hallucinated_sentences": 0,
+        "uncertain_sentences": 2,
+        "faithful_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "contradiction_prob": 0.00016547627456020564,
+            "neutral_prob": 0.7192471027374268,
+            "entailment_prob": 0.28058743476867676,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.28058743476867676,
+            "sentence": "The French Revolution started in 1789 when the Bastille was stormed on July 14th."
+          },
+          {
+            "contradiction_prob": 7.690970960538834e-05,
+            "neutral_prob": 0.9960938096046448,
+            "entailment_prob": 0.0038291860837489367,
+            "predicted_label": "NEUTRAL",
+            "faithfulness_score": 0.0038291860837489367,
+            "sentence": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804."
+          }
+        ]
+      },
+      "semantic": {
+        "document_cosine_similarity": 0.9543665647506714,
+        "faithfulness_score": 0.84216636527356,
+        "bertscore_precision": 0.8893508911132812,
+        "bertscore_recall": 0.7997363408406576,
+        "bertscore_f1": 0.84216636527356,
+        "mean_sentence_similarity": 0.866996169090271,
+        "min_sentence_similarity": 0.8145978450775146,
+        "sentence_scores": [
+          {
+            "cosine_similarity": 0.8387889862060547,
+            "faithfulness_score": 0.9193944931030273,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "The French Revolution started in 1789 when the Bastille was stormed on July 14th.",
+            "sentence": "The French Revolution started in 1789 when the Bastille was stormed on July 14th."
+          },
+          {
+            "cosine_similarity": 0.6291956901550293,
+            "faithfulness_score": 0.8145978450775146,
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "claim": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804.",
+            "sentence": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804."
+          }
+        ]
+      },
+      "llm_judge": {
+        "faithfulness_score": 1.0,
+        "verdict": "FAITHFUL",
+        "confidence": 0.5,
+        "hallucinated_sentences": 0,
+        "faithful_sentences": 2,
+        "uncertain_sentences": 0,
+        "total_sentences": 2,
+        "hallucination_rate": 0.0,
+        "sentence_scores": [
+          {
+            "claim": "The French Revolution started in 1789 when the Bastille was stormed on July 14th.",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "verdict": "FAITHFUL",
+            "faithfulness_score": 1.0,
+            "reason": "The claim directly states information found in the context regarding the start date and event of the French Revolution.",
+            "model": "gemini-2.5-flash",
+            "sentence": "The French Revolution started in 1789 when the Bastille was stormed on July 14th."
+          },
+          {
+            "claim": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804.",
+            "context": "The French Revolution began in 1789 with the storming of the Bastille on July 14. It led to the abolition of the French monarchy and the execution of King Louis XVI in January 1793. The Revolution gav",
+            "verdict": "FAITHFUL",
+            "faithfulness_score": 1.0,
+            "reason": "The claim accurately reflects the consequences mentioned in the context: the abolition of the monarchy, the execution of Louis XVI in 1793, and Napoleon becoming Emperor in 1804.",
+            "model": "gemini-2.5-flash",
+            "sentence": "This led to the end of the monarchy, the execution of Louis XVI in 1793, and eventually Napoleon becoming Emperor in 1804."
+          }
+        ]
+      },
+      "hallu_score_result": {
+        "hallu_score": 0.5369561817038866,
+        "nli_score": 0.14220831042621285,
+        "semantic_score": 0.84216636527356,
+        "llm_judge_score": 1.0,
+        "factuality_bonus": 0.125,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "confidence_interval": [
+          0.14220831042621285,
+          1.0
+        ],
+        "hallucination_rate": 0.0,
+        "hallucinated_count": 0,
+        "total_sentences": 2,
+        "model_used": "hist_001",
+        "weights_used": {
+          "nli": 0.35,
+          "semantic": 0.2,
+          "llm_judge": 0.3,
+          "factuality": 0.15
+        }
+      },
+      "summary": {
+        "hallu_score": 0.5369561817038866,
+        "verdict": "UNCERTAIN",
+        "confidence": 0.5,
+        "nli_score": 0.14220831042621285,
+        "semantic_score": 0.84216636527356,
+        "llm_judge_score": 1.0,
+        "hallucination_rate": 0.0,
+        "is_hallucinated": false
+      },
+      "ground_truth": {
+        "is_faithful": true,
+        "hallucination_type": null,
+        "domain": "history",
+        "difficulty": "easy",
+        "question": "When did the French Revolution begin and what were its key events?",
+        "ground_truth_text": "1789 Bastille storming; monarchy abolished; Louis XVI executed 1793; Napoleon Emperor 1804."
+      }
+    }
+  ],
+  "timestamp": "2026-04-07 10uman:17:39",
+  "config": {
+    "nli_model": "cross-encoder/nli-deberta-v3-base",
+    "semantic_model": "all-MiniLM-L6-v2",
+    "llm_judge_model": "gemini-2.5-flash",
+    "weights": {
+      "nli": 0.35,
+      "semantic": 0.2,
+      "llm_judge": 0.3,
+      "factuality": 0.15
+    },
+    "threshold": 0.5
+  }
+}

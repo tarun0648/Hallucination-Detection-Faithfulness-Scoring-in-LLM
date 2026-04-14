@@ -1,0 +1,6 @@
+id,domain,difficulty,hallu_score,verdict,nli_score,semantic_score,llm_judge_score,is_faithful_gt,hallucination_type,correct_prediction
+sci_001,science,easy,0.511459300480783,UNCERTAIN,0.014126379042863846,0.9388253390789032,1.0,True,,True
+sci_002,science,easy,0.42347022384799926,HALLUCINATED,0.6644551559196165,0.6483045963806673,0.0,False,contradictory,True
+sci_003,science,easy,0.6519788663686594,FAITHFUL,0.5012624110095203,0.7889351125766365,0.75,True,,True
+sci_004,science,medium,0.4996429184240462,UNCERTAIN,0.4998301972227637,0.6297617469803944,0.45,False,fabricated,False
+hist_001,history,easy,0.5369561817038866,UNCERTAIN,0.14220831042621285,0.84216636527356,1.0,True,,True

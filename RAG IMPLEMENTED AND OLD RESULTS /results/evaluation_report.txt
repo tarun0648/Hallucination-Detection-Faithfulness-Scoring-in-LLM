@@ -1,0 +1,38 @@
+=================================================================
+  HALLUCINATION DETECTION SYSTEM — EVALUATION REPORT
+=================================================================
+
+  BENCHMARK STATISTICS
+  Total Samples:          15
+  Faithful Samples:       8
+  Hallucinated Samples:   7
+
+  DETECTION PERFORMANCE
+  Accuracy:               0.5333
+  Precision:              0.5556
+  Recall:                 0.625
+  F1 Score:               0.5882
+  ROC-AUC:                0.4821
+
+  SCORE CORRELATION WITH GROUND TRUTH
+  Spearman-r:             -0.0309
+  Pearson-r:              -0.084
+
+  SCORE SEPARATION
+  Mean HalluScore (Faithful):     0.4393
+  Mean HalluScore (Hallucinated): 0.4576
+
+  DOMAIN ACCURACY
+  science             : 0.5000
+  history             : 1.0000
+  medicine            : 0.3333
+  technology          : 0.3333
+  geography           : 1.0000
+  general             : 0.0000
+
+  COMPONENT WEIGHTS (HalluScore)
+  NLI Weight:             0.35
+  Semantic Weight:        0.2
+  LLM Judge Weight:       0.3
+  Factuality Weight:      0.15
+=================================================================

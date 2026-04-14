@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HalluDetect — LLM Hallucination Detection System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:       #0A0E1A;
+      --surface:  #111827;
+      --card:     #1A2236;
+      --border:   #1E2D45;
+      --text:     #E2E8F0;
+      --muted:    #64748B;
+      --accent:   #3B82F6;
+      --success:  #22C55E;
+      --danger:   #EF4444;
+      --warn:     #F59E0B;
+      --purple:   #A855F7;
+      --mono:     "Space Mono", monospace;
+      --sans:     "DM Sans", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HEADER ── */
+    header {
+      padding: 28px 0 24px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(59,130,246,0.04) 0%, transparent 100%);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--purple));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .logo-text h1 { font-family: var(--mono); font-size: 20px; font-weight: 700; }
+    .logo-text span { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+
+    .tag {
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.25);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── TABS ── */
+    .tabs { display: flex; gap: 4px; padding: 20px 0 0; border-bottom: 1px solid var(--border); }
+    .tab {
+      padding: 10px 20px;
+      border: none; background: transparent;
+      color: var(--muted); font-family: var(--sans); font-size: 14px;
+      cursor: pointer; border-radius: 6px 6px 0 0;
+      transition: all 0.2s; position: relative;
+    }
+    .tab:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    .tab.active {
+      color: var(--accent);
+      background: rgba(59,130,246,0.08);
+    }
+    .tab.active::after {
+      content: ""; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 2px; background: var(--accent);
+    }
+
+    /* ── PANELS ── */
+    .panel { display: none; padding: 28px 0; }
+    .panel.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    /* ── SCORER PANEL ── */
+    .scorer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    @media (max-width: 768px) { .scorer-grid { grid-template-columns: 1fr; } }
+
+    .input-group { display: flex; flex-direction: column; gap: 8px; }
+    .input-group label {
+      font-size: 12px; font-family: var(--mono);
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--sans); font-size: 14px;
+      padding: 14px;
+      resize: vertical;
+      min-height: 160px;
+      line-height: 1.6;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    textarea:focus { outline: none; border-color: var(--accent); }
+    textarea::placeholder { color: var(--muted); }
+
+    /* ── EXAMPLES ROW ── */
+    .examples-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .ex-btn {
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+      color: var(--accent); font-size: 12px; font-family: var(--mono);
+      padding: 6px 14px; border-radius: 20px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ex-btn:hover { background: rgba(59,130,246,0.16); }
+
+    /* ── SCORE BUTTON ── */
+    #scoreBtn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--accent), #1D4ED8);
+      border: none; border-radius: 8px;
+      color: white; font-family: var(--mono); font-size: 14px; font-weight: 700;
+      letter-spacing: 0.05em; cursor: pointer;
+      transition: all 0.2s;
+      position: relative; overflow: hidden;
+    }
+    #scoreBtn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(59,130,246,0.3); }
+    #scoreBtn:active { transform: translateY(0); }
+    #scoreBtn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ── SPINNER ── */
+    .spinner {
+      display: none;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESULTS ── */
+    #results { display: none; margin-top: 24px; }
+
+    .verdict-banner {
+      padding: 20px 24px;
+      border-radius: 10px;
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 20px;
+    }
+    .verdict-banner.faithful {
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.25);
+    }
+    .verdict-banner.hallucinated {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+    }
+    .verdict-banner.uncertain {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+    }
+
+    .verdict-icon { font-size: 32px; }
+    .verdict-text h3 { font-size: 18px; font-family: var(--mono); margin-bottom: 4px; }
+    .verdict-text p { font-size: 13px; color: var(--muted); }
+
+    .score-big {
+      font-family: var(--mono);
+      font-size: 42px; font-weight: 700;
+      margin-left: auto;
+    }
+    .score-big.faithful { color: var(--success); }
+    .score-big.hallucinated { color: var(--danger); }
+    .score-big.uncertain { color: var(--warn); }
+
+    /* ── SCORE BREAKDOWN ── */
+    .breakdown-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    @media (max-width: 600px) { .breakdown-grid { grid-template-columns: 1fr; } }
+
+    .score-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px;
+      text-align: center;
+    }
+    .score-card .label {
+      font-size: 11px; font-family: var(--mono); color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+    }
+    .score-card .value {
+      font-size: 26px; font-family: var(--mono); font-weight: 700;
+    }
+    .score-card .bar-container {
+      height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px;
+    }
+    .score-card .bar { height: 100%; border-radius: 2px; transition: width 1s ease; }
+
+    /* ── SENTENCE ANALYSIS ── */
+    #sentenceAnalysis { margin-top: 20px; }
+    #sentenceAnalysis h4 {
+      font-family: var(--mono); font-size: 13px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .sentence-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      transition: border-color 0.2s;
+    }
+    .sentence-row:hover { border-color: rgba(59,130,246,0.3); }
+
+    .sent-badge {
+      flex-shrink: 0;
+      font-size: 10px; font-family: var(--mono);
+      padding: 3px 8px; border-radius: 4px;
+      font-weight: 700; text-transform: uppercase;
+    }
+    .sent-badge.ENTAILMENT { background: rgba(34,197,94,0.15); color: var(--success); }
+    .sent-badge.CONTRADICTION { background: rgba(239,68,68,0.15); color: var(--danger); }
+    .sent-badge.NEUTRAL { background: rgba(245,158,11,0.15); color: var(--warn); }
+
+    .sent-text { font-size: 13px; line-height: 1.5; flex: 1; }
+    .sent-score { font-family: var(--mono); font-size: 12px; color: var(--muted); flex-shrink: 0; }
+
+    /* ── ERROR ── */
+    .error-box {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 8px; padding: 16px;
+      color: var(--danger); font-size: 13px; font-family: var(--mono);
+      margin-top: 16px; display: none;
+    }
+
+    /* ── METRICS PANEL ── */
+    .metrics-intro {
+      font-size: 14px; color: var(--muted); line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    @media (max-width: 900px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .metric-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px; text-align: center;
+    }
+    .metric-card .m-label { font-size: 11px; font-family: var(--mono); color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+    .metric-card .m-value { font-size: 32px; font-family: var(--mono); font-weight: 700; }
+
+    /* ── WEIGHT SLIDERS ── */
+    .sliders-section h3 {
+      font-family: var(--mono); font-size: 13px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;
+    }
+
+    .slider-row {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 14px;
+    }
+    .slider-label { width: 120px; font-size: 13px; font-family: var(--mono); color: var(--text); flex-shrink: 0; }
+    input[type=range] {
+      flex: 1; -webkit-appearance: none;
+      height: 4px; background: var(--border); border-radius: 2px; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      background: var(--accent); border-radius: 50%;
+      cursor: pointer; transition: transform 0.1s;
+    }
+    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+    .slider-val { width: 50px; text-align: right; font-family: var(--mono); font-size: 13px; color: var(--accent); }
+
+    .weights-total {
+      font-family: var(--mono); font-size: 12px;
+      margin-top: 8px;
+      padding: 8px 12px; border-radius: 6px;
+      display: inline-block;
+    }
+    .weights-total.ok { background: rgba(34,197,94,0.1); color: var(--success); }
+    .weights-total.err { background: rgba(239,68,68,0.1); color: var(--danger); }
+
+    /* ── ABOUT PANEL ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-card h3 {
+      font-family: var(--mono); font-size: 14px; color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .about-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    .formula {
+      font-family: var(--mono); font-size: 13px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px; padding: 14px;
+      margin-top: 12px; line-height: 1.8;
+      color: var(--text);
+    }
+    .formula .hl { color: var(--accent); }
+
+    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    .comparison-table th {
+      background: var(--surface);
+      font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+      color: var(--muted); padding: 10px 14px; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-table td {
+      padding: 10px 14px; font-size: 13px; border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .comparison-table tr:hover td { background: rgba(59,130,246,0.04); }
+    .check { color: var(--success); }
+    .cross { color: var(--danger); }
+
+    /* ── CONFIDENCE BAR ── */
+    .conf-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin-top: 12px; overflow: hidden; }
+    .conf-bar { height: 100%; border-radius: 3px; transition: width 1s ease; background: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      text-align: center;
+      font-size: 12px; font-family: var(--mono);
+      color: var(--muted);
+      margin-top: 48px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.4s ease forwards; }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+      50% { box-shadow: 0 0 20px 4px rgba(59,130,246,0.15); }
+    }
+    .glow-pulse { animation: pulse-glow 2s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrapper">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">🔍</div>
+        <div class="logo-text">
+          <h1>HalluDetect</h1>
+          <span>LLM Hallucination Detection & Faithfulness Scoring</span>
+        </div>
+      </div>
+      <span class="tag">v1.0 · DeBERTa + Gemini + SentenceTransformers</span>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('scorer')">⚡ Live Scorer</button>
+      <button class="tab" onclick="showTab('metrics')">📊 HalluScore Metric</button>
+      <button class="tab" onclick="showTab('about')">📖 Architecture</button>
+      <button class="tab" onclick="showTab('rag')">🗄 RAG Mode</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrapper">
+
+    <!-- ── SCORER PANEL ── -->
+    <div class="panel active" id="panel-scorer">
+
+      <div style="margin-bottom:20px;">
+        <p style="font-size:14px;color:var(--muted);line-height:1.7;">
+          Enter a <strong style="color:var(--text)">reference context</strong> and <strong style="color:var(--text)">LLM-generated text</strong>.
+          HalluDetect will score faithfulness using NLI, semantic similarity, and Gemini judgment.
+        </p>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <p style="font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:8px;">QUICK EXAMPLES</p>
+        <div class="examples-row" id="examplesRow"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="scorer-grid">
+          <div class="input-group">
+            <label>Reference Context (Ground Truth)</label>
+            <textarea id="contextInput" placeholder="Enter the source/reference text that the LLM should have been faithful to..."></textarea>
+          </div>
+          <div class="input-group">
+            <label>LLM Generated Text (To Evaluate)</label>
+            <textarea id="generatedInput" placeholder="Enter the LLM's response or generated text to check for hallucinations..."></textarea>
+          </div>
+        </div>
+
+        <button id="scoreBtn" onclick="runScoring()">
+          <span id="btnText">▶ RUN HALLUCINATION DETECTION</span>
+          <div class="spinner" id="btnSpinner"></div>
+        </button>
+      </div>
+
+      <div class="error-box" id="errorBox"></div>
+
+      <!-- Results -->
+      <div id="results">
+        <!-- Verdict Banner -->
+        <div class="verdict-banner" id="verdictBanner">
+          <div class="verdict-icon" id="verdictIcon"></div>
+          <div class="verdict-text">
+            <h3 id="verdictTitle"></h3>
+            <p id="verdictSub"></p>
+          </div>
+          <div class="score-big" id="scoreBig"></div>
+        </div>
+
+        <!-- Confidence -->
+        <div class="card" style="margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:12px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;">Confidence</span>
+            <span id="confVal" style="font-family:var(--mono);font-size:13px;color:var(--accent);"></span>
+          </div>
+          <div class="conf-bar-wrap">
+            <div class="conf-bar" id="confBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Component Scores -->
+        <div class="breakdown-grid">
+          <div class="score-card">
+            <div class="label">NLI Score</div>
+            <div class="value" id="nliVal" style="color:var(--success)">—</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--mono)">DeBERTa-v3</div>
+            <div class="bar-container"><div class="bar" id="nliBar" style="background:var(--success);width:0%"></div></div>
+          </div>
+          <div class="score-card">
+            <div class="label">Semantic Score</div>
+            <div class="value" id="semVal" style="color:var(--warn)">—</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--mono)">SentenceTransformers</div>
+            <div class="bar-container"><div class="bar" id="semBar" style="background:var(--warn);width:0%"></div></div>
+          </div>
+          <div class="score-card">
+            <div class="label">LLM Judge Score</div>
+            <div class="value" id="llmVal" style="color:var(--purple)">—</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--mono)">Gemini 1.5 Flash</div>
+            <div class="bar-container"><div class="bar" id="llmBar" style="background:var(--purple);width:0%"></div></div>
+          </div>
+        </div>
+
+        <!-- Sentence Analysis -->
+        <div class="card" id="sentenceAnalysis">
+          <h4 style="font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:14px;">
+            Sentence-Level NLI Analysis
+          </h4>
+          <div id="sentenceRows"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── METRICS PANEL ── -->
+    <div class="panel" id="panel-metrics">
+      <div class="metrics-intro">
+        <strong style="color:var(--text)">HalluScore</strong> is our novel composite metric combining four signals into a single faithfulness score in [0, 1].
+        Unlike HHEM (single NLI model) or SelfCheckGPT (requires multiple LLM samples), HalluScore is lightweight, multi-signal, and calibrated.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="m-label">Benchmark Accuracy</div>
+          <div class="m-value" style="color:var(--success)">—</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Run benchmark.py</div>
+        </div>
+        <div class="metric-card">
+          <div class="m-label">F1 Score</div>
+          <div class="m-value" style="color:var(--accent)">—</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Faithful/Halluc. F1</div>
+        </div>
+        <div class="metric-card">
+          <div class="m-label">ROC-AUC</div>
+          <div class="m-value" style="color:var(--purple)">—</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Score discrimination</div>
+        </div>
+        <div class="metric-card">
+          <div class="m-label">Spearman-r</div>
+          <div class="m-value" style="color:var(--warn)">—</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Rank correlation</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="sliders-section">
+          <h3>Adjust HalluScore Weights</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">
+            Tune the contribution of each scoring component. Weights must sum to 1.0.
+          </p>
+
+          <div class="slider-row">
+            <span class="slider-label">NLI (DeBERTa)</span>
+            <input type="range" min="0" max="100" value="35" id="wNLI" oninput="updateWeights()"/>
+            <span class="slider-val" id="wNLIVal">0.35</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Semantic Sim</span>
+            <input type="range" min="0" max="100" value="20" id="wSem" oninput="updateWeights()"/>
+            <span class="slider-val" id="wSemVal">0.20</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">LLM Judge</span>
+            <input type="range" min="0" max="100" value="30" id="wLLM" oninput="updateWeights()"/>
+            <span class="slider-val" id="wLLMVal">0.30</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Factuality</span>
+            <input type="range" min="0" max="100" value="15" id="wFact" oninput="updateWeights()"/>
+            <span class="slider-val" id="wFactVal">0.15</span>
+          </div>
+
+          <div class="weights-total ok" id="weightsTotal">Total: 1.00 ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ABOUT PANEL ── -->
+    <div class="panel" id="panel-about">
+      <div class="about-grid">
+        <div class="card about-card">
+          <h3>🧮 HalluScore Formula</h3>
+          <p>A novel composite metric combining NLI, semantic similarity, LLM judgment, and factuality signals.</p>
+          <div class="formula">
+            <span class="hl">HalluScore</span> = <br>
+            &nbsp;&nbsp;w₁ × <span style="color:var(--success)">NLI_score</span> +<br>
+            &nbsp;&nbsp;w₂ × <span style="color:var(--warn)">Semantic_score</span> +<br>
+            &nbsp;&nbsp;w₃ × <span style="color:var(--purple)">LLM_judge_score</span> +<br>
+            &nbsp;&nbsp;w₄ × <span style="color:var(--danger)">Factuality_bonus</span><br><br>
+            <span style="color:var(--muted)">Default: 0.35 + 0.20 + 0.30 + 0.15</span>
+          </div>
+        </div>
+
+        <div class="card about-card">
+          <h3>🔬 Component Models</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+            <li style="display:flex;gap:10px;">
+              <span style="color:var(--success);font-family:var(--mono);font-size:12px;flex-shrink:0;padding-top:2px;">NLI</span>
+              <span style="font-size:13px;color:var(--muted);">cross-encoder/nli-deberta-v3-base — entailment prediction between context and each sentence of the generated text</span>
+            </li>
+            <li style="display:flex;gap:10px;">
+              <span style="color:var(--warn);font-family:var(--mono);font-size:12px;flex-shrink:0;padding-top:2px;">SEM</span>
+              <span style="font-size:13px;color:var(--muted);">all-MiniLM-L6-v2 — BERTScore-style precision/recall/F1 via embedding similarity</span>
+            </li>
+            <li style="display:flex;gap:10px;">
+              <span style="color:var(--purple);font-family:var(--mono);font-size:12px;flex-shrink:0;padding-top:2px;">LLM</span>
+              <span style="font-size:13px;color:var(--muted);">Gemini 1.5 Flash — LLM-as-judge for reasoning-level hallucination detection</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card about-card" style="grid-column:1/-1">
+          <h3>📊 Comparison with Existing Metrics</h3>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Multi-Signal</th>
+                <th>LLM Reasoning</th>
+                <th>Single-Pass</th>
+                <th>Calibrated CI</th>
+                <th>Open Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>HalluScore (Ours)</strong></td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>HHEM (Vectara)</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="check">✓</td>
+                <td class="cross">✗</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>SelfCheckGPT</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td>G-Eval</td>
+                <td class="cross">✗</td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+              </tr>
+              <tr>
+                <td>FActScore</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="check">✓</td>
+                <td class="cross">✗</td>
+                <td class="check">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- ── RAG PANEL ── -->
+    <div class="panel" id="panel-rag">
+      <div style="margin-bottom:20px;">
+        <p style="font-size:14px;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--text)">RAG Mode</strong> — No manual context needed.
+          Enter your question and the LLM's answer. The system automatically retrieves the
+          most relevant facts from the knowledge base and scores the answer against them.
+        </p>
+      </div>
+
+      <!-- KB Stats bar -->
+      <div id="kbStats" class="card" style="margin-bottom:20px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+        <span style="font-size:12px;font-family:var(--mono);color:var(--muted);">KNOWLEDGE BASE</span>
+        <span id="kbDocs" style="font-size:13px;font-family:var(--mono);color:var(--accent);">loading...</span>
+        <span id="kbChunks" style="font-size:13px;font-family:var(--mono);color:var(--text);">—</span>
+        <button onclick="loadKBStats()" style="margin-left:auto;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:var(--accent);font-family:var(--mono);font-size:12px;padding:4px 12px;border-radius:6px;cursor:pointer;">Refresh</button>
+      </div>
+
+      <!-- RAG demo examples -->
+      <div style="margin-bottom:14px;">
+        <p style="font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:8px;">RAG EXAMPLES (auto-retrieves context)</p>
+        <div class="examples-row" id="ragExamplesRow"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="scorer-grid">
+          <div class="input-group">
+            <label>Question / Query</label>
+            <textarea id="ragQuery" placeholder="What question was the LLM answering? (e.g. How does aspirin work?)" style="min-height:80px;"></textarea>
+          </div>
+          <div class="input-group">
+            <label>LLM-Generated Answer (to evaluate)</label>
+            <textarea id="ragGenerated" placeholder="Paste the LLM's answer here..." style="min-height:80px;"></textarea>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
+          <label style="font-size:12px;font-family:var(--mono);color:var(--muted);">DOMAIN FILTER (optional)</label>
+          <select id="ragDomain" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 10px;font-family:var(--sans);font-size:13px;">
+            <option value="">All domains</option>
+            <option value="science">Science</option>
+            <option value="medicine">Medicine</option>
+            <option value="history">History</option>
+            <option value="technology">Technology</option>
+            <option value="geography">Geography</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+
+        <button id="ragScoreBtn" onclick="runRAGScoring()" style="width:100%;padding:14px;background:linear-gradient(135deg,#7F77DD,#534AB7);border:none;border-radius:8px;color:white;font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:0.05em;cursor:pointer;transition:all 0.2s;">
+          <span id="ragBtnText">▶ RUN RAG HALLUCINATION DETECTION</span>
+          <div class="spinner" id="ragSpinner"></div>
+        </button>
+      </div>
+
+      <div class="error-box" id="ragErrorBox"></div>
+
+      <!-- RAG Results -->
+      <div id="ragResults" style="display:none;">
+        <div class="verdict-banner" id="ragVerdictBanner">
+          <div class="verdict-icon" id="ragVerdictIcon"></div>
+          <div class="verdict-text">
+            <h3 id="ragVerdictTitle"></h3>
+            <p id="ragVerdictSub"></p>
+          </div>
+          <div class="score-big" id="ragScoreBig"></div>
+        </div>
+
+        <!-- Sources used -->
+        <div class="card" style="margin-bottom:16px;">
+          <h4 style="font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Retrieved Sources</h4>
+          <div id="ragSources"></div>
+          <div style="margin-top:12px;padding:10px;background:var(--surface);border-radius:6px;border:1px solid var(--border);">
+            <p style="font-size:11px;font-family:var(--mono);color:var(--muted);margin-bottom:4px;">CONTEXT PREVIEW</p>
+            <p id="ragContextPreview" style="font-size:12px;color:var(--text);line-height:1.5;"></p>
+          </div>
+        </div>
+
+        <!-- Component scores -->
+        <div class="breakdown-grid">
+          <div class="score-card">
+            <div class="label">NLI Score</div>
+            <div class="value" id="ragNliVal" style="color:var(--success)">—</div>
+            <div class="bar-container"><div class="bar" id="ragNliBar" style="background:var(--success);width:0%"></div></div>
+          </div>
+          <div class="score-card">
+            <div class="label">Semantic Score</div>
+            <div class="value" id="ragSemVal" style="color:var(--warn)">—</div>
+            <div class="bar-container"><div class="bar" id="ragSemBar" style="background:var(--warn);width:0%"></div></div>
+          </div>
+          <div class="score-card">
+            <div class="label">LLM Judge</div>
+            <div class="value" id="ragLlmVal" style="color:var(--purple)">—</div>
+            <div class="bar-container"><div class="bar" id="ragLlmBar" style="background:var(--purple);width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add to KB section -->
+      <div class="card" style="margin-top:24px;">
+        <h4 style="font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">Add Document to Knowledge Base</h4>
+        <div class="scorer-grid" style="margin-bottom:12px;">
+          <div class="input-group">
+            <label>Document Title</label>
+            <input id="kbTitle" type="text" placeholder="e.g. Newton's Laws of Motion" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:14px;padding:10px 14px;width:100%;"/>
+          </div>
+          <div class="input-group">
+            <label>Domain</label>
+            <select id="kbDomain" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 14px;font-family:var(--sans);font-size:14px;width:100%;">
+              <option value="general">General</option>
+              <option value="science">Science</option>
+              <option value="medicine">Medicine</option>
+              <option value="history">History</option>
+              <option value="technology">Technology</option>
+              <option value="geography">Geography</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group" style="margin-bottom:12px;">
+          <label>Document Content</label>
+          <textarea id="kbContent" placeholder="Paste the full document text here..." style="min-height:120px;"></textarea>
+        </div>
+        <button onclick="addToKB()" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:var(--accent);font-family:var(--mono);font-size:13px;padding:10px 20px;border-radius:8px;cursor:pointer;width:100%;">
+          + ADD TO KNOWLEDGE BASE
+        </button>
+        <div id="kbAddResult" style="margin-top:10px;font-size:13px;font-family:var(--mono);display:none;"></div>
+      </div>
+    </div>
+</main>
+
+<footer>
+  <div class="wrapper">
+    HalluDetect · UE23AM343BA2 LLM Applications · Built with DeBERTa-v3 · Sentence-Transformers · Gemini API
+  </div>
+</footer>
+
+<script>
+// ── Tab switching ─────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll(".tab").forEach((t, i) => {
+    t.classList.toggle("active", ["scorer","metrics","about","rag"][i] === name);
+  });
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.getElementById("panel-" + name).classList.add("active");
+}
+
+// ── Load demo examples ────────────────────────────────────────────────────
+const EXAMPLES = [
+  {
+    name: "Faithful Science",
+    context: "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts.",
+    generated: "Plants convert sunlight, water, and CO2 into glucose and oxygen through photosynthesis, which occurs in chloroplasts."
+  },
+  {
+    name: "Hallucinated Science",
+    context: "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to produce oxygen and energy in the form of glucose. The process occurs in the chloroplasts.",
+    generated: "Photosynthesis occurs in the mitochondria where plants absorb nitrogen and UV light to produce carbon dioxide as energy."
+  },
+  {
+    name: "Faithful History",
+    context: "The French Revolution began in 1789 with the storming of the Bastille on July 14. King Louis XVI was executed in January 1793.",
+    generated: "The French Revolution started in 1789 when the Bastille was stormed on July 14th, and Louis XVI was executed in 1793."
+  },
+  {
+    name: "Fabricated Facts",
+    context: "The speed of light in vacuum is 299,792,458 m/s. Nothing with mass can travel at or beyond this speed.",
+    generated: "The speed of light is 186,000 km/s. CERN experiments in 2022 demonstrated that neutrinos travel at 1.3× the speed of light."
+  }
+];
+
+window.onload = () => {
+  const row = document.getElementById("examplesRow");
+  EXAMPLES.forEach((ex, i) => {
+    const btn = document.createElement("button");
+    btn.className = "ex-btn";
+    btn.textContent = ex.name;
+    btn.onclick = () => {
+      document.getElementById("contextInput").value   = ex.context;
+      document.getElementById("generatedInput").value = ex.generated;
+    };
+    row.appendChild(btn);
+  });
+};
+
+// ── Run scoring ───────────────────────────────────────────────────────────
+async function runScoring() {
+  const context   = document.getElementById("contextInput").value.trim();
+  const generated = document.getElementById("generatedInput").value.trim();
+  const errBox    = document.getElementById("errorBox");
+
+  errBox.style.display = "none";
+
+  if (!context || !generated) {
+    errBox.textContent = "Please enter both context and generated text.";
+    errBox.style.display = "block";
+    return;
+  }
+
+  // Show spinner
+  const btn = document.getElementById("scoreBtn");
+  document.getElementById("btnText").style.display    = "none";
+  document.getElementById("btnSpinner").style.display = "block";
+  btn.disabled = true;
+  document.getElementById("results").style.display = "none";
+
+  try {
+    const resp = await fetch("/api/score", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ context, generated_text: generated })
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json();
+      throw new Error(err.error || "API error");
+    }
+
+    const data = await resp.json();
+    renderResults(data);
+
+  } catch (e) {
+    errBox.textContent = "Error: " + e.message + " (Make sure the Flask server is running on port 5000)";
+    errBox.style.display = "block";
+  } finally {
+    document.getElementById("btnText").style.display    = "inline";
+    document.getElementById("btnSpinner").style.display = "none";
+    btn.disabled = false;
+  }
+}
+
+function renderResults(data) {
+  const verdict = data.verdict;
+  const score   = data.hallu_score;
+  const conf    = data.confidence;
+
+  // Verdict banner
+  const banner = document.getElementById("verdictBanner");
+  banner.className = "verdict-banner " + verdict.toLowerCase();
+
+  const icons = { FAITHFUL: "✅", HALLUCINATED: "🚨", UNCERTAIN: "⚠️" };
+  const titles = {
+    FAITHFUL:     "OUTPUT IS FAITHFUL",
+    HALLUCINATED: "HALLUCINATION DETECTED",
+    UNCERTAIN:    "UNCERTAIN — MANUAL REVIEW RECOMMENDED"
+  };
+  const subs = {
+    FAITHFUL:     "The generated text is well-supported by the reference context.",
+    HALLUCINATED: "The generated text contains claims not supported by or contradicting the context.",
+    UNCERTAIN:    "The generated text has mixed signals. Confidence is low."
+  };
+
+  document.getElementById("verdictIcon").textContent = icons[verdict] || "❓";
+  document.getElementById("verdictTitle").textContent = titles[verdict] || verdict;
+  document.getElementById("verdictSub").textContent   = subs[verdict] || "";
+
+  const scoreBig = document.getElementById("scoreBig");
+  scoreBig.textContent = score.toFixed(3);
+  scoreBig.className   = "score-big " + verdict.toLowerCase();
+
+  // Confidence
+  document.getElementById("confVal").textContent = (conf * 100).toFixed(1) + "% confidence";
+  setTimeout(() => {
+    document.getElementById("confBar").style.width = (conf * 100) + "%";
+  }, 100);
+
+  // Component scores
+  const scores = data.scores || {};
+  const nliScore = scores.nli      || 0;
+  const semScore = scores.semantic  || 0;
+  const llmScore = scores.llm_judge || 0;
+
+  document.getElementById("nliVal").textContent = nliScore.toFixed(3);
+  document.getElementById("semVal").textContent = semScore.toFixed(3);
+  document.getElementById("llmVal").textContent = llmScore.toFixed(3);
+
+  setTimeout(() => {
+    document.getElementById("nliBar").style.width = (nliScore * 100) + "%";
+    document.getElementById("semBar").style.width = (semScore * 100) + "%";
+    document.getElementById("llmBar").style.width = (llmScore * 100) + "%";
+  }, 100);
+
+  // Sentence analysis
+  const sents = data.sentence_analysis || [];
+  const sentRows = document.getElementById("sentenceRows");
+  sentRows.innerHTML = "";
+
+  if (sents.length === 0) {
+    sentRows.innerHTML = "<p style='font-size:13px;color:var(--muted);'>No sentence-level breakdown available.</p>";
+  } else {
+    sents.forEach(s => {
+      const div = document.createElement("div");
+      div.className = "sentence-row fade-up";
+      div.innerHTML = `
+        <span class="sent-badge ${s.label}">${s.label}</span>
+        <span class="sent-text">${escHtml(s.sentence)}</span>
+        <span class="sent-score">${(s.nli_score || 0).toFixed(3)}</span>
+      `;
+      sentRows.appendChild(div);
+    });
+  }
+
+  document.getElementById("results").style.display = "block";
+  document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+// ── Weight sliders ────────────────────────────────────────────────────────
+function updateWeights() {
+  const ids = ["wNLI", "wSem", "wLLM", "wFact"];
+  const vals = ids.map(id => parseInt(document.getElementById(id).value));
+  const total = vals.reduce((a, b) => a + b, 0);
+
+  ids.forEach((id, i) => {
+    document.getElementById(id + "Val").textContent = (vals[i] / 100).toFixed(2);
+  });
+
+  const totalEl = document.getElementById("weightsTotal");
+  const t = (total / 100).toFixed(2);
+  totalEl.textContent = `Total: ${t} ${Math.abs(total - 100) < 2 ? "✓" : "✗ (should be 1.00)"}`;
+  totalEl.className   = "weights-total " + (Math.abs(total - 100) < 2 ? "ok" : "err");
+}
+
+
+// ── RAG Panel ────────────────────────────────────────────────────────────────
+const RAG_EXAMPLES = [
+  { name:"Aspirin (faithful)",    query:"How does aspirin work?",
+    generated:"Aspirin inhibits COX enzymes to reduce prostaglandins, relieving pain. At low doses it prevents platelet aggregation.", domain:"medicine" },
+  { name:"Aspirin (hallucinated)", query:"How does aspirin work?",
+    generated:"Aspirin blocks serotonin receptors in the brain and stimulates endorphin release to reduce inflammation.", domain:"medicine" },
+  { name:"Transformer (faithful)", query:"Who invented the transformer?",
+    generated:"The Transformer was introduced by Vaswani et al. in the 2017 paper Attention Is All You Need. It uses self-attention instead of RNNs.", domain:"technology" },
+  { name:"Everest (hallucinated)", query:"When was Everest first climbed?",
+    generated:"Everest was first summited in 1952 by a Swiss team. It stands 8,900m on the India-Nepal border.", domain:"geography" }
+];
+
+window.addEventListener("load", () => {
+  loadKBStats();
+  const row = document.getElementById("ragExamplesRow");
+  RAG_EXAMPLES.forEach(ex => {
+    const btn = document.createElement("button");
+    btn.className = "ex-btn";
+    btn.textContent = ex.name;
+    btn.onclick = () => {
+      document.getElementById("ragQuery").value     = ex.query;
+      document.getElementById("ragGenerated").value = ex.generated;
+      document.getElementById("ragDomain").value    = ex.domain || "";
+    };
+    row.appendChild(btn);
+  });
+});
+
+async function loadKBStats() {
+  try {
+    const resp = await fetch("/api/rag/stats");
+    if (!resp.ok) return;
+    const data = await resp.json();
+    document.getElementById("kbDocs").textContent   = data.total_documents + " documents";
+    document.getElementById("kbChunks").textContent = data.total_chunks + " chunks indexed";
+  } catch(e) {
+    document.getElementById("kbDocs").textContent = "KB not loaded yet";
+  }
+}
+
+async function runRAGScoring() {
+  const query     = document.getElementById("ragQuery").value.trim();
+  const generated = document.getElementById("ragGenerated").value.trim();
+  const domain    = document.getElementById("ragDomain").value;
+  const errBox    = document.getElementById("ragErrorBox");
+  errBox.style.display = "none";
+
+  if (!generated) {
+    errBox.textContent = "Please enter the LLM-generated answer to evaluate.";
+    errBox.style.display = "block"; return;
+  }
+
+  const btn = document.getElementById("ragScoreBtn");
+  document.getElementById("ragBtnText").style.display  = "none";
+  document.getElementById("ragSpinner").style.display  = "block";
+  btn.disabled = true;
+  document.getElementById("ragResults").style.display = "none";
+
+  try {
+    const resp = await fetch("/api/rag/score", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ generated_text: generated, query: query || null, domain: domain || null })
+    });
+    if (!resp.ok) { const e = await resp.json(); throw new Error(e.error || "API error"); }
+    const data = await resp.json();
+    renderRAGResults(data);
+  } catch(e) {
+    errBox.textContent = "Error: " + e.message;
+    errBox.style.display = "block";
+  } finally {
+    document.getElementById("ragBtnText").style.display = "inline";
+    document.getElementById("ragSpinner").style.display = "none";
+    btn.disabled = false;
+  }
+}
+
+function renderRAGResults(data) {
+  const verdict = data.verdict;
+  const score   = data.hallu_score;
+  const icons   = { FAITHFUL:"✅", HALLUCINATED:"🚨", UNCERTAIN:"⚠️" };
+  const titles  = { FAITHFUL:"OUTPUT IS FAITHFUL", HALLUCINATED:"HALLUCINATION DETECTED", UNCERTAIN:"UNCERTAIN" };
+  const subs    = { FAITHFUL:"Supported by the retrieved knowledge base.", HALLUCINATED:"Contradicts or unsupported by retrieved context.", UNCERTAIN:"Mixed signals — review manually." };
+
+  const banner = document.getElementById("ragVerdictBanner");
+  banner.className = "verdict-banner " + verdict.toLowerCase();
+  document.getElementById("ragVerdictIcon").textContent  = icons[verdict] || "❓";
+  document.getElementById("ragVerdictTitle").textContent = titles[verdict] || verdict;
+  document.getElementById("ragVerdictSub").textContent   = subs[verdict] || "";
+  const sb = document.getElementById("ragScoreBig");
+  sb.textContent = score.toFixed(3);
+  sb.className   = "score-big " + verdict.toLowerCase();
+
+  // Sources
+  const sourcesDiv = document.getElementById("ragSources");
+  sourcesDiv.innerHTML = "";
+  const rag = data.rag || {};
+  (rag.sources || []).forEach(s => {
+    const div = document.createElement("div");
+    div.style.cssText = "display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);";
+    div.innerHTML = `
+      <span style="font-family:var(--mono);font-size:11px;background:rgba(59,130,246,0.1);color:var(--accent);padding:2px 8px;border-radius:4px;">#${s.rank}</span>
+      <span style="font-size:13px;color:var(--text);flex:1;">${escHtml(s.title)}</span>
+      <span style="font-size:11px;font-family:var(--mono);color:var(--muted);">${s.domain}</span>
+      <span style="font-size:11px;font-family:var(--mono);color:var(--accent);">sim=${s.score}</span>
+    `;
+    sourcesDiv.appendChild(div);
+  });
+
+  document.getElementById("ragContextPreview").textContent = rag.context_preview || "";
+
+  const sc = data.scores || {};
+  document.getElementById("ragNliVal").textContent = (sc.nli || 0).toFixed(3);
+  document.getElementById("ragSemVal").textContent = (sc.semantic || 0).toFixed(3);
+  document.getElementById("ragLlmVal").textContent = (sc.llm_judge || 0).toFixed(3);
+  setTimeout(() => {
+    document.getElementById("ragNliBar").style.width = ((sc.nli||0)*100)+"%";
+    document.getElementById("ragSemBar").style.width = ((sc.semantic||0)*100)+"%";
+    document.getElementById("ragLlmBar").style.width = ((sc.llm_judge||0)*100)+"%";
+  }, 100);
+
+  document.getElementById("ragResults").style.display = "block";
+  document.getElementById("ragResults").scrollIntoView({ behavior:"smooth", block:"nearest" });
+}
+
+async function addToKB() {
+  const title   = document.getElementById("kbTitle").value.trim();
+  const content = document.getElementById("kbContent").value.trim();
+  const domain  = document.getElementById("kbDomain").value;
+  const result  = document.getElementById("kbAddResult");
+
+  if (!title || !content) {
+    result.style.display = "block";
+    result.style.color   = "var(--danger)";
+    result.textContent   = "Title and content are required.";
+    return;
+  }
+
+  result.style.display = "block";
+  result.style.color   = "var(--muted)";
+  result.textContent   = "Adding document...";
+
+  try {
+    const resp = await fetch("/api/rag/add", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ title, content, domain, source:"custom" })
+    });
+    const data = await resp.json();
+    if (data.success) {
+      result.style.color = "var(--success)";
+      result.textContent = `Added! doc_id=${data.doc_id}. KB now has ${data.kb_stats.total_chunks} chunks.`;
+      loadKBStats();
+      document.getElementById("kbTitle").value   = "";
+      document.getElementById("kbContent").value = "";
+    } else {
+      result.style.color = "var(--danger)";
+      result.textContent = "Error: " + (data.error || "unknown");
+    }
+  } catch(e) {
+    result.style.color = "var(--danger)";
+    result.textContent = "Request failed: " + e.message;
+  }
+}
+
+</script>
+</body>
+</html>
