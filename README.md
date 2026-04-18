@@ -2,8 +2,7 @@
 
 **LLM Hallucination Detection & Faithfulness Scoring System**
 
-> UE23AM343BA2 — Large Language Models and Their Applications
-> Jackfruit Project ·
+
 
 ---
 
